@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+    .container{
+    margin: 0;
+    width: 50%;
+    margin-top:20px;
+}
+.card{
+    width: 90%;
+    height: 13vh;
+    margin-top: 5px;
+}
+        button{
+    background-color: #096ee0;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    width: 120px;
+    margin-left: 80px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+    </style>
+</head>
+<body>
+<!--/*@thymesVar id="recipe" type="com.ethioclicks.skilledApp.security.entity.User"*/-->
+<div>
+
+    <h1>Zegulit Ecommerce</h1>
+    <hr>
+    <div class="container" th:each="user : ${verifyemail}">
+        <h2 th:text="@{|Hi ${user.firstName} ${user.lastName} |}" > Hi new User</h2><br/>
+        <p>Thanks for joining our app. To finish sign up, you just need to confirm that we got your email right.</p>
+        <div class="card">
+            <a th:href="@{|http://localhost:8080/verify_email?pid=${user.userPublicId}|}" target="blank">
+                <button>Verify Now</button> <br/>
+            </a>
+            <hr>
+        </div>
+    </div>
+</div>
+</body>
+</html>

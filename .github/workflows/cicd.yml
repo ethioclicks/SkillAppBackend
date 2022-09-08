@@ -1,0 +1,38 @@
+name: Build and publish manually
+
+on:
+  push:
+    branches: [ Category_and_Product ]
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: maven
+      - name: Build with Maven
+        run: |
+          mvn -B package --file pom.xml -Dmaven.test.skip=true
+
+      - name: Build image
+        run: docker build -t zegulitapp .
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
+      - name: Tag image
+        run:
+          docker tag zegulitapp registry.digitalocean.com/ethioclicks-container/zegulitapp:latest
+      - name: Push image to DO Container Registry
+        run: docker push registry.digitalocean.com/ethioclicks-container/zegulitapp:latest
