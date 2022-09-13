@@ -5,6 +5,7 @@ import com.ethioclicks.skilledApp.security.entity.UserAddress;
 import com.ethioclicks.skilledApp.security.utils.Util;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,16 +28,22 @@ public class UserProfileModel {
     @NotNull(message = "Phone can not be empty")
     @Size(min = 10,message = "Phone number should be at least 10 digit")
     private String phoneNumber;
+    @NotNull( message = "User Biography can not be empty")
+    private String biography;
     @Size(min = 6,max = 20,message = "Password should be at least 6 and max 20 characters")
     @NotNull(message = "Password name can not be empty")
     private String userPassword;
     @NotNull(message = "Email name can not be empty")
     @Email(message = "Email should be in proper format")
     private String email;
-    @NotNull(message = "User Address can not be empty")
-    private UserAddress address;
-    @NotNull(message = "Questions and Answer can not be empty")
-    private String questionsAndAnswers[];
+    @NotNull(message = "City can not be empty")
+    private String city;
+    @NotNull(message = "Street can not be empty")
+    private String street;
+    private Boolean isApproved = Boolean.FALSE;
+    private Boolean isSuspended = Boolean.FALSE;
+
+    private String profileImageUrl;
 
     public UserProfileModel fromUserEntity(User user) {
         if(user!=null){
@@ -44,11 +51,15 @@ public class UserProfileModel {
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .email(user.getUserName())
+                    .biography(user.getBiography())
                     .phoneNumber(user.getPhoneNumber())
                     .userPassword(user.getPassWord())
-                    .address(user.getAddress())
+                    .city(user.getCity())
+                    .street(user.getStreet())
                     .userPublicId(user.getUserPublicId())
-                    .questionsAndAnswers(Util.stringToArray(user.getQuestionsAndAnswers()))
+                    .isApproved(user.getIsApproved())
+                    .isSuspended(user.getIsSuspended())
+                    .profileImageUrl(user.getProfileImageUrl())
                     .build();
         }
         return null;

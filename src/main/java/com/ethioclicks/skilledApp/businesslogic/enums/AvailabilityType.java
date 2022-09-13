@@ -1,4 +1,4 @@
-package com.ethioclicks.skilledApp.enums;
+package com.ethioclicks.skilledApp.businesslogic.enums;
 
 public enum AvailabilityType {
 

@@ -41,24 +41,29 @@ public class User {
     private String firstName;
     @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Column(name = "BIOGRAPHY", length = 1000)
+    private String biography;
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
     @Column(name = "USER_PUBLIC_ID")
     private String userPublicId;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ADDRESS_ID")
-    private UserAddress address;
-
-//  Security Check Questions Answer
-    @Column(name = "QUESTIONSANDANSWERS")
-    private String questionsAndAnswers;
+    @Column(name = "STREET")
+    private String street;
+    @Column(name = "CITY")
+    private String city;
+    @Column(name = "PROFILE_IMAGE_URL")
+    private String profileImageUrl;
 
     @Column(name = "VERIFIED_EMAIL")
     private String verifiedEmail;
     @Column(name = "IS_EMAIL_VERIFIED")
     private Boolean isEmailVerified = Boolean.FALSE;
+    @Column(name = "IS_APPROVED")
+    private Boolean isApproved = Boolean.FALSE;
 
-
+    @Column(name = "IS_SUSPENDED")
+    private Boolean isSuspended = Boolean.FALSE;
 
     public User fromUserProfile(UserProfileModel userProfileModel){
         return this.builder()
@@ -66,8 +71,14 @@ public class User {
                 .passWord(userProfileModel.getUserPassword())
                 .firstName(userProfileModel.getFirstName())
                 .lastName(userProfileModel.getLastName())
-                .address(userProfileModel.getAddress())
+                .phoneNumber(userProfileModel.getPhoneNumber())
                 .userPublicId(userProfileModel.getUserPublicId())
+                .biography(userProfileModel.getBiography())
+                .city(userProfileModel.getCity())
+                .street(userProfileModel.getStreet())
+                .isApproved(userProfileModel.getIsApproved())
+                .isSuspended(userProfileModel.getIsSuspended())
+                .profileImageUrl(userProfileModel.getProfileImageUrl())
                 .build();
     }
 
@@ -79,8 +90,12 @@ public class User {
                 .lastName(this.lastName)
                 .userPassword(this.passWord)
                 .phoneNumber(this.phoneNumber)
-                .address(this.address)
-                .questionsAndAnswers(Util.stringToArray(this.questionsAndAnswers))
+                .city(this.city)
+                .street(this.street)
+                .biography(this.biography)
+                .isSuspended(this.isSuspended)
+                .isApproved(this.isApproved)
+                .profileImageUrl(this.profileImageUrl)
                 .isEmailVerified(this.isEmailVerified)
                 .verifiedEmail(this.verifiedEmail)
                 .build();

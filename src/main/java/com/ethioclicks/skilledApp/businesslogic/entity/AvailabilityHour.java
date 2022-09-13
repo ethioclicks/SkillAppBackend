@@ -1,6 +1,6 @@
 package com.ethioclicks.skilledApp.businesslogic.entity;
 
-import com.ethioclicks.skilledApp.enums.DAY_OF_WEEK;
+import com.ethioclicks.skilledApp.businesslogic.enums.DAY_OF_WEEK;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

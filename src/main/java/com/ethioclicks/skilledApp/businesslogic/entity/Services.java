@@ -22,6 +22,8 @@ public class Services {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Long id;
+    @Column(name = "SERVICE_PUBLIC_ID")
+    private String servicePublicId;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CATEGORY_ID")
     private SkillCategory skillCategory;
@@ -64,6 +66,9 @@ public class Services {
     private double paymentPrice;
     @Column(name = "PAYMENT_REMARK")
     private double paymentRemark;
+    @OneToOne
+    @JoinColumn(name = "OWNER_ID")
+    private User owner;
 
 
 }

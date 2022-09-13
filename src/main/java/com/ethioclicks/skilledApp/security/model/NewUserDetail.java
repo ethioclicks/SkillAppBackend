@@ -29,6 +29,8 @@ public class NewUserDetail{
     @NotNull(message = "Phone can not be empty")
     @Size(min = 10,message = "Phone number should be at least 10 digit")
     private String phoneNumber;
+    @NotNull( message = "User Biography can not be empty")
+    private String biography;
     @Size(min = 6,max = 50,message = "Password should be at least 6 and max 20 characters")
     @NotNull(message = "Password name can not be empty")
     private String userPassword;
@@ -36,12 +38,14 @@ public class NewUserDetail{
     @NotNull(message = "Email name can not be empty")
     @Email(message = "Email should be in proper format")
     private String email;
+    @NotNull(message = "City can not be empty")
+    private String city;
+    @NotNull(message = "Street can not be empty")
+    private String street;
+    private Boolean isApproved = Boolean.FALSE;
+    private Boolean isSuspended = Boolean.FALSE;
 
-    @NotNull(message = "User Address can not be empty")
-    private UserAddress address;
-
-    @NotNull(message = "Questions and Answer can not be empty")
-    private String questionsAndAnswers[];
+    private String profileImageUrl;
 
     private String verifiedEmail;
 
