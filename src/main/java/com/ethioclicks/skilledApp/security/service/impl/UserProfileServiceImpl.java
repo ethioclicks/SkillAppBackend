@@ -36,8 +36,8 @@ public class UserProfileServiceImpl implements UserProfileService {
             exisitingUser.setFirstName(userProfileModel.getFirstName());
             exisitingUser.setLastName(userProfileModel.getLastName());
             exisitingUser.setPhoneNumber(userProfileModel.getPhoneNumber());
-            exisitingUser.setAddress(userProfileModel.getAddress());
-            exisitingUser.setQuestionsAndAnswers(Util.arrayToString(userProfileModel.getQuestionsAndAnswers()));
+//            exisitingUser.setAddress(userProfileModel.getAddress());
+//            exisitingUser.setQuestionsAndAnswers(Util.arrayToString(userProfileModel.getQuestionsAndAnswers()));
             User updatedUser = userRepo.save(exisitingUser);
             return new UserProfileModel().fromUserEntity(updatedUser);
         }

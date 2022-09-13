@@ -61,7 +61,6 @@ public class User {
     private Boolean isEmailVerified = Boolean.FALSE;
     @Column(name = "IS_APPROVED")
     private Boolean isApproved = Boolean.FALSE;
-
     @Column(name = "IS_SUSPENDED")
     private Boolean isSuspended = Boolean.FALSE;
 

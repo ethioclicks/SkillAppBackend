@@ -80,11 +80,11 @@ public class UserResetServiceImpl implements UserResetService {
         }
         User user = users.get(0);
         if (user != null) {
-            String[] securityQuestions = Util.stringToArray(user.getQuestionsAndAnswers());
-            if (securityQuestions.length > userCheckModel.getAttempt()){
-                userCheckModel.setQuestionsAndAnswers(securityQuestions[userCheckModel.getAttempt()]);
-                userCheckModel.setAttempt(userCheckModel.getAttempt()+1);
-            }
+////            String[] securityQuestions = Util.stringToArray(user.getQuestionsAndAnswers());
+//            if (securityQuestions.length > userCheckModel.getAttempt()){
+//                userCheckModel.setQuestionsAndAnswers(securityQuestions[userCheckModel.getAttempt()]);
+//                userCheckModel.setAttempt(userCheckModel.getAttempt()+1);
+//            }
         }
         return userCheckModel;
     }

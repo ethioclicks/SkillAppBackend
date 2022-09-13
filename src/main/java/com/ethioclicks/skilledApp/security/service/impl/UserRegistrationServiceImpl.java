@@ -36,8 +36,8 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setPhoneNumber(newUserDetail.getPhoneNumber());
         user.setFirstName(newUserDetail.getFirstName());
         user.setLastName(newUserDetail.getLastName());
-        user.setAddress(newUserDetail.getAddress());
-        user.setQuestionsAndAnswers(Util.arrayToString(newUserDetail.getQuestionsAndAnswers()));
+//        user.setAddress(newUserDetail.getAddress());
+//        user.setQuestionsAndAnswers(Util.arrayToString(newUserDetail.getQuestionsAndAnswers()));
         user.setUserPublicId(UUID.randomUUID().toString());
 
         user.setPassWord(BCrypt.hashpw(user.getPassWord(), BCrypt.gensalt()));
