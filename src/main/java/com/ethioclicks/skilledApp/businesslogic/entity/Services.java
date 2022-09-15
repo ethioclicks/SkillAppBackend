@@ -1,6 +1,7 @@
 package com.ethioclicks.skilledApp.businesslogic.entity;
 
 
+import com.ethioclicks.skilledApp.businesslogic.enums.PAYMENT_TYPE_ENUM;
 import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,23 +26,23 @@ public class Services {
     @Column(name = "SERVICE_PUBLIC_ID")
     private String servicePublicId;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CATEGORY_ID")
+    @JoinColumn(name = "SKILL_CATEGORY_ID")
     private SkillCategory skillCategory;
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", length = 1000)
     private String description;
     @Column(name = "YEAR_IN_SERVICE")
     private Integer yearInService;
     @Column(name = "SERVICE_REGISTERED_DATE")
     private Date serviceRegisteredDate;
-    @Column(name = "SKILL")
-    private String skill;
+    @Column(name = "SKILLS", length = 1000)
+    private String skills;
     @Column (name = "IMAGE_URL")
     private String imageUrl;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
-    private List<User> users;
+    private User user;
 
-    @Column(name = "LOCATION_COVERAGE")
+    @Column(name = "LOCATION_COVERAGE", length = 1000)
     private String locationCoverage;
 
     @Column(name = "AVAILABILITY_TYPE_ID")
@@ -50,25 +51,21 @@ public class Services {
     @Column(name = "NUMBER_OF_SERVICES_COMPLETED")
     private Integer numberOfServicesCompleted;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "SERVICE_ID")
-
-    List<AvailabilityHour> availabilityHours;
+    private List<AvailabilityHour> availabilityHours;
     @Column(name = "RATE")
     private double rate;
 
-    @Column(name = "USERS_RATED")
+    @Transient
     private int usersRated;
 
-    @Column(name = "PAYMENT_TYPE")
-    private String paymentType;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PAYMENT_TYPE_ID")
+    private PaymentType paymentType;
     @Column(name = "PAYMENT_PRICE")
     private double paymentPrice;
     @Column(name = "PAYMENT_REMARK")
     private double paymentRemark;
-    @OneToOne
-    @JoinColumn(name = "OWNER_ID")
-    private User owner;
-
 
 }

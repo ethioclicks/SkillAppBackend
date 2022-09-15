@@ -26,22 +26,23 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     public NewUserDetail saveUser(NewUserDetail newUserDetail) {
         User user = new User();
         user.setUserName(newUserDetail.getEmail());
-        user.setPassWord(newUserDetail.getUserPassword());
+//        user.setPassWord(newUserDetail.getUserPassword());
+        user.setPassWord(BCrypt.hashpw(user.getPassWord(), BCrypt.gensalt()));
         user.setCreatedOn(new Date());
         user.setEnabled(true);
         user.setLocked(false);
         user.setIsEmailVerified(false);
-        user.setRoles(roleRepo.findAllByname("USER"));
-
+        user.setRoles(roleRepo.findAllByName("USER"));
         user.setPhoneNumber(newUserDetail.getPhoneNumber());
         user.setFirstName(newUserDetail.getFirstName());
         user.setLastName(newUserDetail.getLastName());
-//        user.setAddress(newUserDetail.getAddress());
-//        user.setQuestionsAndAnswers(Util.arrayToString(newUserDetail.getQuestionsAndAnswers()));
         user.setUserPublicId(UUID.randomUUID().toString());
 
-        user.setPassWord(BCrypt.hashpw(user.getPassWord(), BCrypt.gensalt()));
-        user.setIsEmailVerified(Boolean.FALSE);
+//        user.setIsEmailVerified(Boolean.FALSE);
+        user.setBiography(newUserDetail.getBiography());
+        user.setCity(newUserDetail.getCity());
+        user.setSubCity(newUserDetail.getSubCity());
+        user.setProfileImageUrl(newUserDetail.getProfileImageUrl());
         User savedUser = userRepo.save(user);
         if (savedUser == null) {
             return null;

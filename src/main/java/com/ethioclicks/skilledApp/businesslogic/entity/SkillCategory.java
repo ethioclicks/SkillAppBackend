@@ -19,7 +19,7 @@ public class SkillCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Long id;
-    @Column(name="CTEGORY_NAME")
+    @Column(name="CATEGORY_NAME")
     private String catgoryName;
     @Column(name ="SUB_CATEGORY" )
     private String subCategory;

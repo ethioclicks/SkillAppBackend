@@ -1,6 +1,5 @@
 package com.ethioclicks.skilledApp.security.model;
 
-import com.ethioclicks.skilledApp.security.entity.UserAddress;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,15 +39,14 @@ public class NewUserDetail{
     private String email;
     @NotNull(message = "City can not be empty")
     private String city;
-    @NotNull(message = "Street can not be empty")
-    private String street;
+    @NotNull(message = "sub city can not be empty")
+    private String subCity;
     private Boolean isApproved = Boolean.FALSE;
+
     private Boolean isSuspended = Boolean.FALSE;
-
+    @NotNull(message = "Profile Image can not be empty")
     private String profileImageUrl;
-
     private String verifiedEmail;
-
     private Boolean isEmailVerified = Boolean.FALSE;
 
 }

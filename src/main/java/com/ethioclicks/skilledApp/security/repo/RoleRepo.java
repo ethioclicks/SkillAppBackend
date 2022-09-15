@@ -6,5 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Set;
 
 public interface RoleRepo extends CrudRepository<Role, Integer> {
-    Set<Role> findAllByname(String user);
+//    Set<Role> findAllByname(String user);
+    Set<Role> findAllByName(String user);
 }

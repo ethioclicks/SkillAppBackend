@@ -1,8 +1,9 @@
 package com.ethioclicks.skilledApp.security.entity;
 
+import com.ethioclicks.skilledApp.businesslogic.entity.Agency;
+import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 import com.ethioclicks.skilledApp.security.model.NewUserDetail;
 import com.ethioclicks.skilledApp.security.model.UserProfileModel;
-import com.ethioclicks.skilledApp.security.utils.Util;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -41,17 +42,17 @@ public class User {
     private String firstName;
     @Column(name = "LAST_NAME")
     private String lastName;
-
     @Column(name = "BIOGRAPHY", length = 1000)
     private String biography;
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
     @Column(name = "USER_PUBLIC_ID")
     private String userPublicId;
-    @Column(name = "STREET")
-    private String street;
     @Column(name = "CITY")
     private String city;
+    @Column(name = "SUB_CITY")
+    private String subCity;
+
     @Column(name = "PROFILE_IMAGE_URL")
     private String profileImageUrl;
 
@@ -63,7 +64,11 @@ public class User {
     private Boolean isApproved = Boolean.FALSE;
     @Column(name = "IS_SUSPENDED")
     private Boolean isSuspended = Boolean.FALSE;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Services> services;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="AGENCY_ID")
+    private Agency agency;
     public User fromUserProfile(UserProfileModel userProfileModel){
         return this.builder()
                 .userName(userProfileModel.getEmail())
@@ -74,13 +79,13 @@ public class User {
                 .userPublicId(userProfileModel.getUserPublicId())
                 .biography(userProfileModel.getBiography())
                 .city(userProfileModel.getCity())
-                .street(userProfileModel.getStreet())
+                .subCity(userProfileModel.getStreet())
                 .isApproved(userProfileModel.getIsApproved())
                 .isSuspended(userProfileModel.getIsSuspended())
                 .profileImageUrl(userProfileModel.getProfileImageUrl())
+                .services(userProfileModel.getServices())
                 .build();
     }
-
     public NewUserDetail getUserDetailModel(User savedUser) {
         return NewUserDetail.builder()
                 .userPublicId(this.userPublicId)
@@ -90,7 +95,7 @@ public class User {
                 .userPassword(this.passWord)
                 .phoneNumber(this.phoneNumber)
                 .city(this.city)
-                .street(this.street)
+                .subCity(this.subCity)
                 .biography(this.biography)
                 .isSuspended(this.isSuspended)
                 .isApproved(this.isApproved)

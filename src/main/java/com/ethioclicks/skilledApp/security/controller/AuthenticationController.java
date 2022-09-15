@@ -57,7 +57,6 @@ public class AuthenticationController {
         return new TokenPayLoad(generatedToken,userByUserName);
 
     }
-
     @PostMapping(value = "/createUser")
     @Operation(description = "This API receive User's Information and then Create New USer and return the user's profile.")
     ResponseEntity<NewUserDetail> createUser(@Parameter(description = "User's Information") @Valid @RequestBody NewUserDetail userDetail) throws Exception{

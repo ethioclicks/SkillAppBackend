@@ -1,14 +1,14 @@
 package com.ethioclicks.skilledApp.security.model;
 
+import com.ethioclicks.skilledApp.businesslogic.entity.Agency;
+import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 import com.ethioclicks.skilledApp.security.entity.User;
-import com.ethioclicks.skilledApp.security.entity.UserAddress;
-import com.ethioclicks.skilledApp.security.utils.Util;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,7 +42,9 @@ public class UserProfileModel {
     private String street;
     private Boolean isApproved = Boolean.FALSE;
     private Boolean isSuspended = Boolean.FALSE;
-
+    private List<Services> services;
+    private Agency agency;
+    @NotNull(message = "Profile Image can not be empty")
     private String profileImageUrl;
 
     public UserProfileModel fromUserEntity(User user) {
@@ -55,10 +57,10 @@ public class UserProfileModel {
                     .phoneNumber(user.getPhoneNumber())
                     .userPassword(user.getPassWord())
                     .city(user.getCity())
-                    .street(user.getStreet())
+                    .street(user.getSubCity())
                     .userPublicId(user.getUserPublicId())
                     .isApproved(user.getIsApproved())
-                    .isSuspended(user.getIsSuspended())
+                    .services(user.getServices())
                     .profileImageUrl(user.getProfileImageUrl())
                     .build();
         }

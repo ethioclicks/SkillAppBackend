@@ -1,5 +1,6 @@
 package com.ethioclicks.skilledApp.businesslogic.entity;
 
+import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Agency {
     private String phone;
     @Column(name = "EMAIL")
     private String email;
-
-
-
+    @OneToOne
+    @JoinColumn(name = "OWNER_ID")
+    private User owner;
 }
