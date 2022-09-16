@@ -29,18 +29,19 @@ public class EmailVerificationController {
     public ResponseEntity<User> verifyEmail(@Parameter(description = "User's Verified Email") @RequestHeader("pid") String pid, @RequestBody User verifiedEmail) throws Exception {
 
         User user = userRegistrationService.getUser(pid);
-
-        if(emailVerificationService.isEmailExists(user.getUserName())) {
-           if (!user.getIsEmailVerified() == true){
-               emailVerificationService.verifyEmail(pid, verifiedEmail.getVerifiedEmail());
-               return new ResponseEntity ("Check your email and verify your account", HttpStatus.OK);
-           }
-           else {
-               return new ResponseEntity ("Your Email Account is Already Verified", HttpStatus.OK);
-           }
-        }else{
-            return new ResponseEntity("User Name Does Not Exist Change it and Try Again Please", HttpStatus.NOT_FOUND);
+        if (user != null) {
+            if (emailVerificationService.isEmailExists(user.getUserName())) {
+                if (!user.getIsEmailVerified() == true) {
+                    emailVerificationService.verifyEmail(pid, verifiedEmail.getVerifiedEmail());
+                    return new ResponseEntity("Check your email and verify your account", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity("Your Email Account is Already Verified", HttpStatus.OK);
+                }
+            } else {
+                return new ResponseEntity("User Name Does Not Exist Change it and Try Again Please", HttpStatus.NOT_FOUND);
+            }
         }
+        return new ResponseEntity("User Does Not Exist  Try Again Please", HttpStatus.NOT_FOUND);
     }
 
 }

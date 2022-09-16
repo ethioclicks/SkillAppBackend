@@ -29,15 +29,17 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfileModel updateUserProfile(String pid, UserProfileModel userProfileModel) {
         Optional<User> userByPublicId = userRepo.findByUserPublicId(pid);
-        if(userByPublicId.isPresent()){
-            User exisitingUser=userByPublicId.get();
+        if (userByPublicId.isPresent()) {
+            User exisitingUser = userByPublicId.get();
             exisitingUser.setUserPublicId(pid);
             exisitingUser.setUserName(userProfileModel.getEmail());
             exisitingUser.setFirstName(userProfileModel.getFirstName());
             exisitingUser.setLastName(userProfileModel.getLastName());
             exisitingUser.setPhoneNumber(userProfileModel.getPhoneNumber());
-//            exisitingUser.setAddress(userProfileModel.getAddress());
-//            exisitingUser.setQuestionsAndAnswers(Util.arrayToString(userProfileModel.getQuestionsAndAnswers()));
+            exisitingUser.setCity(userProfileModel.getCity());
+            exisitingUser.setSubCity(userProfileModel.getSubCity());
+            exisitingUser.setBiography(userProfileModel.getBiography());
+            exisitingUser.setProfileImageUrl(userProfileModel.getProfileImageUrl());
             User updatedUser = userRepo.save(exisitingUser);
             return new UserProfileModel().fromUserEntity(updatedUser);
         }

@@ -26,7 +26,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     public NewUserDetail saveUser(NewUserDetail newUserDetail) {
         User user = new User();
         user.setUserName(newUserDetail.getEmail());
-//        user.setPassWord(newUserDetail.getUserPassword());
+        user.setPassWord(newUserDetail.getUserPassword());
         user.setPassWord(BCrypt.hashpw(user.getPassWord(), BCrypt.gensalt()));
         user.setCreatedOn(new Date());
         user.setEnabled(true);

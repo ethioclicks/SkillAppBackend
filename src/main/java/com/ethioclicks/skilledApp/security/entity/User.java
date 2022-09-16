@@ -79,7 +79,7 @@ public class User {
                 .userPublicId(userProfileModel.getUserPublicId())
                 .biography(userProfileModel.getBiography())
                 .city(userProfileModel.getCity())
-                .subCity(userProfileModel.getStreet())
+                .subCity(userProfileModel.getSubCity())
                 .isApproved(userProfileModel.getIsApproved())
                 .isSuspended(userProfileModel.getIsSuspended())
                 .profileImageUrl(userProfileModel.getProfileImageUrl())

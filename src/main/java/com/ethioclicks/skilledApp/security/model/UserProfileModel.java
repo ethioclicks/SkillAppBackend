@@ -38,8 +38,8 @@ public class UserProfileModel {
     private String email;
     @NotNull(message = "City can not be empty")
     private String city;
-    @NotNull(message = "Street can not be empty")
-    private String street;
+    @NotNull(message = "sub city can not be empty")
+    private String subCity;
     private Boolean isApproved = Boolean.FALSE;
     private Boolean isSuspended = Boolean.FALSE;
     private List<Services> services;
@@ -57,10 +57,12 @@ public class UserProfileModel {
                     .phoneNumber(user.getPhoneNumber())
                     .userPassword(user.getPassWord())
                     .city(user.getCity())
-                    .street(user.getSubCity())
+                    .subCity(user.getSubCity())
                     .userPublicId(user.getUserPublicId())
                     .isApproved(user.getIsApproved())
+                    .isSuspended((user.getIsSuspended()))
                     .services(user.getServices())
+                    .agency(user.getAgency())
                     .profileImageUrl(user.getProfileImageUrl())
                     .build();
         }
