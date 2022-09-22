@@ -19,10 +19,10 @@ public class NewUserDetail{
     private String userPublicId;
 
     @NotNull(message = "First name can not be empty")
-    @Size(min = 2,message = "Full name should be at least 2 characters")
+    @Size(min = 2,message = "Fist Name should be at least 2 characters")
     private String firstName;
     @NotNull(message = "Last name can not be empty")
-    @Size(min = 2,message = "Full name should be at least 2 characters")
+    @Size(min = 2,message = "Last Name should be at least 2 characters")
     private String lastName;
     @NotBlank(message = "Phone is required")
     @NotNull(message = "Phone can not be empty")
@@ -42,7 +42,6 @@ public class NewUserDetail{
     @NotNull(message = "sub city can not be empty")
     private String subCity;
     private Boolean isApproved = Boolean.FALSE;
-
     private Boolean isSuspended = Boolean.FALSE;
     @NotNull(message = "Profile Image can not be empty")
     private String profileImageUrl;

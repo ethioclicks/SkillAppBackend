@@ -6,12 +6,12 @@ import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.*;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,11 +20,12 @@ public class UserProfileModel {
     private String userPublicId;
 
     @NotNull(message = "First name can not be empty")
-    @Size(min = 2,message = "Full name should be at least 2 characters")
+    @Size(min = 2,message = "First Name should be at least 2 characters")
     private String firstName;
     @NotNull(message = "Last name can not be empty")
-    @Size(min = 2,message = "Full name should be at least 2 characters")
+    @Size(min = 2,message = "Last Name should be at least 2 characters")
     private String lastName;
+    @NotBlank(message = "Phone is required")
     @NotNull(message = "Phone can not be empty")
     @Size(min = 10,message = "Phone number should be at least 10 digit")
     private String phoneNumber;

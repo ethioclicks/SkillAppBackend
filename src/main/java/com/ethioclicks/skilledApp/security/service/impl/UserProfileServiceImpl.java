@@ -30,17 +30,17 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfileModel updateUserProfile(String pid, UserProfileModel userProfileModel) {
         Optional<User> userByPublicId = userRepo.findByUserPublicId(pid);
         if (userByPublicId.isPresent()) {
-            User exisitingUser = userByPublicId.get();
-            exisitingUser.setUserPublicId(pid);
-            exisitingUser.setUserName(userProfileModel.getEmail());
-            exisitingUser.setFirstName(userProfileModel.getFirstName());
-            exisitingUser.setLastName(userProfileModel.getLastName());
-            exisitingUser.setPhoneNumber(userProfileModel.getPhoneNumber());
-            exisitingUser.setCity(userProfileModel.getCity());
-            exisitingUser.setSubCity(userProfileModel.getSubCity());
-            exisitingUser.setBiography(userProfileModel.getBiography());
-            exisitingUser.setProfileImageUrl(userProfileModel.getProfileImageUrl());
-            User updatedUser = userRepo.save(exisitingUser);
+            User existingUser = userByPublicId.get();
+            existingUser.setUserPublicId(pid);
+            existingUser.setUserName(userProfileModel.getEmail());
+            existingUser.setFirstName(userProfileModel.getFirstName());
+            existingUser.setLastName(userProfileModel.getLastName());
+            existingUser.setPhoneNumber(userProfileModel.getPhoneNumber());
+            existingUser.setCity(userProfileModel.getCity());
+            existingUser.setSubCity(userProfileModel.getSubCity());
+            existingUser.setBiography(userProfileModel.getBiography());
+            existingUser.setProfileImageUrl(userProfileModel.getProfileImageUrl());
+            User updatedUser = userRepo.save(existingUser);
             return new UserProfileModel().fromUserEntity(updatedUser);
         }
         throw new BadRequestException("Profile not found");

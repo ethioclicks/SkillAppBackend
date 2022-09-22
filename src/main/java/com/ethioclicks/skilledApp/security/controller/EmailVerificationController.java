@@ -1,7 +1,10 @@
 package com.ethioclicks.skilledApp.security.controller;
 
+import com.ethioclicks.skilledApp.security.entity.EmailSendToken;
 import com.ethioclicks.skilledApp.security.entity.User;
+import com.ethioclicks.skilledApp.security.service.EmailService;
 import com.ethioclicks.skilledApp.security.service.EmailVerificationService;
+import com.ethioclicks.skilledApp.security.service.PasswordResetService;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,6 +26,36 @@ public class EmailVerificationController {
     @Autowired
     EmailVerificationService emailVerificationService;
 
+    @Autowired
+    EmailService emailService;
+
+    @Autowired
+    PasswordResetService passwordResetService;
+    @PostMapping( "/send-email-conformation" )
+    @SecurityRequirement( name = "bearerAuth" )
+    @Operation( description = "This API verify user's email account" )
+    public ResponseEntity<User> conformEmail(@Parameter( description = "User's conform Email" ) @RequestBody User user) throws Exception {
+
+        if (emailService.isEmailExists(user.getUserName())) {
+            return new ResponseEntity("Your Email Account is Already exists Please use another email", HttpStatus.CONFLICT);
+        } else {
+            passwordResetService.sendFirstRegistrationToken(user.getUserName());
+            return new ResponseEntity("conformation email send to your email , pls check and conform", HttpStatus.OK);
+        }
+    }
+    @GetMapping( value = "/check-token" )
+    @Operation( description = "This API receive reset password  token as Parameter and update password." )
+    public ResponseEntity<String> checkToken(@RequestParam( "token" ) String token, @RequestParam( "email" ) String email) throws Exception {
+        EmailSendToken userToken = passwordResetService.getTokenByEmail(token, email);
+        if(userToken==null){
+            return new ResponseEntity("Incorrect token", HttpStatus.BAD_REQUEST);
+        }
+        if (passwordResetService.isTokenExpired(userToken.getCreatedDate())) {
+            return new ResponseEntity(" Token is Expired ", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("Correct Token", HttpStatus.OK);
+
+    }
     @PostMapping("/verify-email")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(description = "This API verify user's email account")
@@ -43,5 +76,4 @@ public class EmailVerificationController {
         }
         return new ResponseEntity("User Does Not Exist  Try Again Please", HttpStatus.NOT_FOUND);
     }
-
 }
