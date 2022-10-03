@@ -1,7 +1,5 @@
 package com.ethioclicks.skilledApp.businesslogic.entity;
 
-
-import com.ethioclicks.skilledApp.businesslogic.enums.PAYMENT_TYPE_ENUM;
 import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -67,5 +65,7 @@ public class Services {
     private double paymentPrice;
     @Column(name = "PAYMENT_REMARK")
     private double paymentRemark;
+    @Column(name = "POST_DATE")
+    private Date postDate;
 
 }

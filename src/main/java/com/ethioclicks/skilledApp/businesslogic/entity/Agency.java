@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,8 @@ public class Agency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Long id;
+    @Column(name = "AGENCY_PUBLIC_ID")
+    private String agencyPublicId;
     @Column(name = "DESCRIPTION")
     private String Description;
     @Column(name = "CITY")
@@ -30,4 +33,6 @@ public class Agency {
     @OneToOne
     @JoinColumn(name = "OWNER_ID")
     private User owner;
+    @Column(name = "POSTED_DATE")
+    private Date postDate;
 }
