@@ -3,6 +3,7 @@ package com.ethioclicks.skilledApp.businesslogic.model;
 import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -16,5 +17,5 @@ public class AgencyModel {
     private String phone;
     private String email;
     private User owner;
-    private Date postDate;
+    private LocalDateTime postDate;
 }

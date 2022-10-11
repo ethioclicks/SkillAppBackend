@@ -6,6 +6,7 @@ import com.ethioclicks.skilledApp.businesslogic.entity.SkillCategory;
 import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ServicesModel {
     private double rate;
     private PaymentType paymentType;
     private double paymentPrice;
-    private double paymentRemark;
-    private Date postDate;
+    private String paymentRemark;
+    private LocalDateTime postDate;
 
 }

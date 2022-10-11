@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@Table(name = "RATE")
-public class Rate {
+@Table(name = "SERVICS_RATE")
+public class ServicesRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

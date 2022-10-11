@@ -10,7 +10,7 @@ import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,7 +55,7 @@ public class AgencyServiceImpl implements AgencyService {
             agency.setAgencyPublicId(UUID.randomUUID().toString());
             agency.setOwner(user);
 
-            agency.setPostDate(new Date());
+            agency.setPostDate(LocalDateTime.now());
             return Mapper.toAgencyModel(agencyRepo.save(agency));
         }
     }

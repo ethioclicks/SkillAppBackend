@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -64,8 +65,8 @@ public class Services {
     @Column(name = "PAYMENT_PRICE")
     private double paymentPrice;
     @Column(name = "PAYMENT_REMARK")
-    private double paymentRemark;
+    private String paymentRemark;
     @Column(name = "POST_DATE")
-    private Date postDate;
+    private LocalDateTime postDate;
 
 }

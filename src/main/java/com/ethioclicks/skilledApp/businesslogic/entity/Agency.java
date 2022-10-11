@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -34,5 +35,5 @@ public class Agency {
     @JoinColumn(name = "OWNER_ID")
     private User owner;
     @Column(name = "POSTED_DATE")
-    private Date postDate;
+    private LocalDateTime postDate;
 }

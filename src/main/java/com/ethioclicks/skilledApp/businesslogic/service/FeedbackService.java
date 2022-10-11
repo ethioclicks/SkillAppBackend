@@ -1,10 +1,11 @@
 package com.ethioclicks.skilledApp.businesslogic.service;
 
-import com.ethioclicks.skilledApp.businesslogic.entity.Feedback;
+import com.ethioclicks.skilledApp.businesslogic.entity.ServicesFeedback;
+import com.ethioclicks.skilledApp.businesslogic.model.ServicesFeedbackModel;
 
 import java.util.List;
 
 public interface FeedbackService {
-    List<Feedback> giveProductFeedback(Feedback feedback, String pid, Long productId, Long feedbackId);
-    List<Feedback> getProductFeedbacks(Long serviceId);
+    List<ServicesFeedbackModel> giveProductFeedback(ServicesFeedback servicesFeedback, String pid, Long serviceId, Long feedbackId);
+    List<ServicesFeedbackModel> getProductFeedbacks(Long serviceId);
 }

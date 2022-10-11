@@ -3,7 +3,10 @@ package com.ethioclicks.skilledApp.businesslogic.util;
 
 import com.ethioclicks.skilledApp.businesslogic.entity.Agency;
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
+import com.ethioclicks.skilledApp.businesslogic.entity.ServicesFeedback;
+import com.ethioclicks.skilledApp.businesslogic.enums.FEEDBACK_TYPE;
 import com.ethioclicks.skilledApp.businesslogic.model.AgencyModel;
+import com.ethioclicks.skilledApp.businesslogic.model.ServicesFeedbackModel;
 import com.ethioclicks.skilledApp.businesslogic.model.ServicesModel;
 
 public class Mapper {
@@ -26,6 +29,8 @@ public class Mapper {
             servicesModel.setPaymentType(services.getPaymentType());
             servicesModel.setPaymentRemark(services.getPaymentRemark());
             servicesModel.setPostDate(services.getPostDate());
+
+            return  servicesModel;
         }
         return null;
     }
@@ -33,13 +38,14 @@ public class Mapper {
     public static Services toServiceEntity(ServicesModel servicesModel) {
         if(servicesModel!=null){
             Services services = new Services();
-            services.setId(servicesModel.getId());
+//            services.setId(servicesModel.getId());
             services.setServicePublicId(servicesModel.getServicePublicId());
             services.setSkillCategory(servicesModel.getSkillCategory());
             services.setDescription(servicesModel.getDescription());
             services.setYearInService(servicesModel.getYearInService());
             services.setSkills(servicesModel.getSkills());
             services.setImageUrl(servicesModel.getImageUrl());
+
             services.setUser(servicesModel.getUser());
             services.setLocationCoverage(servicesModel.getLocationCoverage());
             services.setAvailabilityTypeId(servicesModel.getAvailabilityTypeId());
@@ -49,6 +55,8 @@ public class Mapper {
             services.setPaymentType(servicesModel.getPaymentType());
             services.setPaymentRemark(servicesModel.getPaymentRemark());
             services.setPostDate(servicesModel.getPostDate());
+
+            return services;
         }
 
         return null;
@@ -65,6 +73,7 @@ public class Mapper {
             agencyModel.setEmail(agency.getEmail());
             agencyModel.setOwner(agency.getOwner());
             agencyModel.setPostDate(agency.getPostDate());
+            return  agencyModel;
         }
 
         return null;
@@ -82,8 +91,37 @@ public class Mapper {
             agency.setEmail(agencyModel.getEmail());
             agency.setOwner(agencyModel.getOwner());
             agency.setPostDate(agencyModel.getPostDate());
+            return agency;
         }
 
+        return null;
+    }
+    public static ServicesFeedback toServiceFeedback(ServicesFeedbackModel servicesFeedbackModel) {
+        if(servicesFeedbackModel!=null){
+            ServicesFeedback servicesFeedback = new ServicesFeedback();
+            servicesFeedback.setFeedback(servicesFeedbackModel.getFeedback());
+            servicesFeedback.setUser(servicesFeedbackModel.getUser());
+            servicesFeedback.setCurrentTime(servicesFeedbackModel.getCurrentTime());
+            servicesFeedback.setType(servicesFeedbackModel.getType().toString());
+            servicesFeedback.setReply(servicesFeedbackModel.getReply());
+            servicesFeedback.setIsReply(servicesFeedbackModel.getIsReply());
+
+            return servicesFeedback;
+        }
+        return null;
+    }
+    public static ServicesFeedbackModel toServiceFeedbackModel(ServicesFeedback servicesFeedback) {
+        if(servicesFeedback !=null){
+            ServicesFeedbackModel servicesFeedbackModel = new ServicesFeedbackModel();
+            servicesFeedbackModel.setFeedback(servicesFeedback.getFeedback());
+            servicesFeedbackModel.setUser(servicesFeedback.getUser());
+            servicesFeedbackModel.setCurrentTime(servicesFeedback.getCurrentTime());
+            servicesFeedbackModel.setType(FEEDBACK_TYPE.valueOf(servicesFeedback.getType()));
+            servicesFeedbackModel.setReply(servicesFeedback.getReply());
+            servicesFeedbackModel.setIsReply(servicesFeedback.getIsReply());
+
+            return servicesFeedbackModel;
+        }
         return null;
     }
 }

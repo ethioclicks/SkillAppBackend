@@ -11,7 +11,7 @@ import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -54,7 +54,7 @@ public class ServicesServiceImpl implements ServicesService {
                 existingService.setPaymentRemark(servicesModel.getPaymentRemark());
                 existingService.setAvailabilityHours(servicesModel.getAvailabilityHours());
                 existingService.setPaymentType(servicesModel.getPaymentType());
-                existingService.setPostDate(new Date());
+                existingService.setPostDate(LocalDateTime.now());
                 return Mapper.toServiceModel(servicesRepo.save(existingService));
             }
             else {
@@ -63,13 +63,13 @@ public class ServicesServiceImpl implements ServicesService {
         } else {
 
             Services services = Mapper.toServiceEntity(servicesModel);
-            services.setServicePublicId(UUID.randomUUID().toString());
+            String servicePublicId =  UUID.randomUUID().toString();
+            services.setServicePublicId(servicePublicId);
             services.setUser(user);
-
-            services.setPostDate(new Date());
+//            services.setSkillCategory();
+            services.setPostDate(LocalDateTime.now());
             return Mapper.toServiceModel(servicesRepo.save(services));
         }
-
     }
     @Override
     public boolean isServiceOwner(String servicePublicId, String pid) {

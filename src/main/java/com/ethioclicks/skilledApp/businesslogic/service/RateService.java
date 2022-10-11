@@ -1,7 +1,9 @@
 package com.ethioclicks.skilledApp.businesslogic.service;
 
-import com.ethioclicks.skilledApp.businesslogic.entity.Rate;
-import org.springframework.data.repository.CrudRepository;
+import com.ethioclicks.skilledApp.businesslogic.entity.Services;
+import com.ethioclicks.skilledApp.security.entity.User;
 
-public interface RateService extends CrudRepository<Rate,Long> {
+public interface RateService{
+    void rateService(int rate, Services services, User user);
+
 }

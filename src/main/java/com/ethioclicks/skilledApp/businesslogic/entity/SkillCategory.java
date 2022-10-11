@@ -20,7 +20,7 @@ public class SkillCategory {
     @Column(name = "ID", nullable = false)
     private Long id;
     @Column(name="CATEGORY_NAME")
-    private String catgoryName;
+    private String categoryName;
     @Column(name ="SUB_CATEGORY" )
     private String subCategory;
     @Column(name = "DESCRIPTION")

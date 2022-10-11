@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface ServicesRepo extends CrudRepository<Services,Long> , JpaSpecificationExecutor<Services>, PagingAndSortingRepository<Services, Long> {
     Optional<Services> findByServicePublicId(String servicePublicId);
+
+    Services getServiceById(Long ServicesId);
 }

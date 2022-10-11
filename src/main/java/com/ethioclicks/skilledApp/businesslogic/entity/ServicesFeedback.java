@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "FEEDBACKS")
-public class Feedback {
+public class ServicesFeedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -24,7 +24,7 @@ public class Feedback {
     @OneToOne
     User user;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "RESTAURANT_ID")
+    @JoinColumn(name = "SERVICES_ID")
     Services services;
     @Column(name = "POST_TIME")
     LocalDateTime currentTime;
@@ -32,7 +32,7 @@ public class Feedback {
     String type;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "REPLY_FEEDBACK")
-    Feedback reply;
+    ServicesFeedback reply;
     @Column(name = "IS_REPLY")
     Boolean isReply = false;
 }
