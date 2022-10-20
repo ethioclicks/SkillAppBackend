@@ -8,6 +8,7 @@ import com.ethioclicks.skilledApp.businesslogic.service.RateService;
 import com.ethioclicks.skilledApp.security.entity.User;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.DecimalFormat;
 
 @Service
@@ -20,6 +21,7 @@ public class RateServiceImpl implements RateService {
         this.servicesRateRepo = servicesRateRepo;
         this.servicesRepo = servicesRepo;
     }
+    @Transactional
     @Override
     public void rateService(int rate, Services services, User user) {
         Services servicesToRate = servicesRepo.getServiceById(services.getId());

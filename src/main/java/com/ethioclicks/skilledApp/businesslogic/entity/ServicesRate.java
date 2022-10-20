@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@Table(name = "SERVICS_RATE")
+@Table(name = "SERVICES_RATE")
 public class ServicesRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,7 @@ public class ServicesRate {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     User user;
-    @ManyToOne
-    @JoinColumn(name = "SHOP_ID")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SERVICE_ID")
     Services services;
-
 }

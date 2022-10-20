@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "FEEDBACKS")
+@Table(name = "SERVICE_FEEDBACKS")
 public class ServicesFeedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

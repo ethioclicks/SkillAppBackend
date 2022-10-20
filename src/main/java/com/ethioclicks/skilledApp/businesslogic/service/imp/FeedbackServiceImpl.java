@@ -12,6 +12,7 @@ import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,7 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         this.servicesRepo = servicesRepo;
         this.servicesFeedBackRepo = servicesFeedbackRepo;
     }
-
+@Transactional
     @Override
     public List<ServicesFeedbackModel> giveProductFeedback(ServicesFeedback servicesFeedback, String pid, Long serviceId, Long feedbackId) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");

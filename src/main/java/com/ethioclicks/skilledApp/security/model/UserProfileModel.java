@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -43,7 +44,7 @@ public class UserProfileModel {
     private String subCity;
     private Boolean isApproved = Boolean.FALSE;
     private Boolean isSuspended = Boolean.FALSE;
-    private List<Services> services;
+    private Set<Services> services;
     private Agency agency;
     @NotNull(message = "Profile Image can not be empty")
     private String profileImageUrl;

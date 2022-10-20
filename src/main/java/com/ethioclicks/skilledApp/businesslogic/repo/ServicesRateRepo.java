@@ -11,6 +11,6 @@ public interface ServicesRateRepo extends CrudRepository<ServicesRate,Long> , Jp
 
 
     ServicesRate findServiceRatingByServicesAndUser(Services services, User user);
-    @Query(value = "SELECT AVG(SERVICES_RATE.RATE) FROM SERIVES_RATE WHERE SERVICE_RATE.SERVICE_ID =:serviceId ", nativeQuery = true)
+    @Query(value = "SELECT AVG(SERVICES_RATE.RATE) FROM SERVICES_RATE WHERE SERVICES_RATE.SERVICE_ID =:serviceId ", nativeQuery = true)
     double getRating(Long serviceId);
 }

@@ -19,7 +19,7 @@ import java.util.*;
 @Table(name = "USER")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     Integer id;
     @Column(name = "USER_NAME")
@@ -64,11 +64,20 @@ public class User {
     private Boolean isApproved = Boolean.FALSE;
     @Column(name = "IS_SUSPENDED")
     private Boolean isSuspended = Boolean.FALSE;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Services> services;
+
+    @OneToMany(cascade = CascadeType.ALL,  fetch = FetchType.EAGER,orphanRemoval = true)
+    @JoinColumn(name = "USER_ID")
+    private Set<Services> services = new HashSet<>();
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="AGENCY_ID")
     private Agency agency;
+
+    public void addServices(Services services){
+        this.services.add(services);
+        services.setUser(this);
+
+    }
     public User fromUserProfile(UserProfileModel userProfileModel){
         return this.builder()
                 .userName(userProfileModel.getEmail())

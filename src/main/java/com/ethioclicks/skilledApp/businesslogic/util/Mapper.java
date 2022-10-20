@@ -38,7 +38,7 @@ public class Mapper {
     public static Services toServiceEntity(ServicesModel servicesModel) {
         if(servicesModel!=null){
             Services services = new Services();
-//            services.setId(servicesModel.getId());
+            services.setId(servicesModel.getId());
             services.setServicePublicId(servicesModel.getServicePublicId());
             services.setSkillCategory(servicesModel.getSkillCategory());
             services.setDescription(servicesModel.getDescription());
@@ -99,6 +99,7 @@ public class Mapper {
     public static ServicesFeedback toServiceFeedback(ServicesFeedbackModel servicesFeedbackModel) {
         if(servicesFeedbackModel!=null){
             ServicesFeedback servicesFeedback = new ServicesFeedback();
+            servicesFeedback.setId(servicesFeedbackModel.getId());
             servicesFeedback.setFeedback(servicesFeedbackModel.getFeedback());
             servicesFeedback.setUser(servicesFeedbackModel.getUser());
             servicesFeedback.setCurrentTime(servicesFeedbackModel.getCurrentTime());
@@ -113,6 +114,7 @@ public class Mapper {
     public static ServicesFeedbackModel toServiceFeedbackModel(ServicesFeedback servicesFeedback) {
         if(servicesFeedback !=null){
             ServicesFeedbackModel servicesFeedbackModel = new ServicesFeedbackModel();
+            servicesFeedbackModel.setId(servicesFeedback.getId());
             servicesFeedbackModel.setFeedback(servicesFeedback.getFeedback());
             servicesFeedbackModel.setUser(servicesFeedback.getUser());
             servicesFeedbackModel.setCurrentTime(servicesFeedback.getCurrentTime());

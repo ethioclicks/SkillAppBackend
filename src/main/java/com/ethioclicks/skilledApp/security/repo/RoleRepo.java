@@ -2,6 +2,7 @@ package com.ethioclicks.skilledApp.security.repo;
 
 import com.ethioclicks.skilledApp.security.entity.Role;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 

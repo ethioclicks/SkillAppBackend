@@ -37,6 +37,7 @@ public class Services {
     private String skills;
     @Column (name = "IMAGE_URL")
     private String imageUrl;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -51,7 +52,7 @@ public class Services {
     private Integer numberOfServicesCompleted;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "SERVICE_ID")
+    @JoinColumn(name = "AVAILABILITY_HOUR_ID")
     private List<AvailabilityHour> availabilityHours;
     @Column(name = "RATE")
     private double rate;
