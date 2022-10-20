@@ -66,6 +66,7 @@ public class User {
     private Boolean isSuspended = Boolean.FALSE;
 
     @OneToMany(cascade = CascadeType.ALL,  fetch = FetchType.EAGER,orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     @JoinColumn(name = "USER_ID")
     private Set<Services> services = new HashSet<>();
 

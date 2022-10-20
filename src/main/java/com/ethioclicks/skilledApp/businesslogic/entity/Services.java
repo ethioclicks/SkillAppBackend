@@ -1,6 +1,7 @@
 package com.ethioclicks.skilledApp.businesslogic.entity;
 
 import com.ethioclicks.skilledApp.security.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,6 +40,7 @@ public class Services {
     private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("services")
     @JoinColumn(name = "USER_ID")
     private User user;
 
