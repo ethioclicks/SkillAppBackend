@@ -15,7 +15,7 @@ public class Mapper {
             ServicesModel servicesModel = new ServicesModel();
             servicesModel.setId(services.getId());
             servicesModel.setServicePublicId(services.getServicePublicId());
-            servicesModel.setSkillCategory(services.getSkillCategory());
+//            servicesModel.setSkillCategory(services.getSkillCategory().getId());
             servicesModel.setDescription(services.getDescription());
             servicesModel.setYearInService(services.getYearInService());
             servicesModel.setSkills(services.getSkills());
@@ -26,7 +26,7 @@ public class Mapper {
             servicesModel.setNumberOfServicesCompleted(services.getNumberOfServicesCompleted());
             servicesModel.setAvailabilityHours(services.getAvailabilityHours());
             servicesModel.setRate(services.getRate());
-            servicesModel.setPaymentType(services.getPaymentType());
+            servicesModel.setPaymentPrice(services.getPaymentPrice());
             servicesModel.setPaymentRemark(services.getPaymentRemark());
             servicesModel.setPostDate(services.getPostDate());
 
@@ -40,19 +40,18 @@ public class Mapper {
             Services services = new Services();
             services.setId(servicesModel.getId());
             services.setServicePublicId(servicesModel.getServicePublicId());
-            services.setSkillCategory(servicesModel.getSkillCategory());
+//            services.setSkillCategory(servicesModel.getSkillCategory());
             services.setDescription(servicesModel.getDescription());
             services.setYearInService(servicesModel.getYearInService());
             services.setSkills(servicesModel.getSkills());
             services.setImageUrl(servicesModel.getImageUrl());
-
             services.setUser(servicesModel.getUser());
             services.setLocationCoverage(servicesModel.getLocationCoverage());
             services.setAvailabilityTypeId(servicesModel.getAvailabilityTypeId());
             services.setNumberOfServicesCompleted(servicesModel.getNumberOfServicesCompleted());
             services.setAvailabilityHours(servicesModel.getAvailabilityHours());
             services.setRate(servicesModel.getRate());
-            services.setPaymentType(servicesModel.getPaymentType());
+            services.setPaymentPrice(servicesModel.getPaymentPrice());
             services.setPaymentRemark(servicesModel.getPaymentRemark());
             services.setPostDate(servicesModel.getPostDate());
 

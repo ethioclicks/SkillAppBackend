@@ -38,13 +38,12 @@ public class ServiceController {
         servicesModel = servicesService.getServiceByPublicId(servicePublicId);
         return new ResponseEntity(servicesModel, HttpStatus.OK);
     }
-    @DeleteMapping( "service/{servicePublicId}" )
+    @DeleteMapping( "service/{serviceId}" )
     @SecurityRequirement( name = "bearerAuth" )
-    @Operation( description = "This API accept restaurantId and delete the restaurant" )
-    public ResponseEntity deleteServices(@Parameter( description = "service publicId" ) @PathVariable( "servicePublicId" ) String servicePublicId) {
+    @Operation( description = "This API accept service Id and delete the service" )
+    public ResponseEntity deleteServices(@Parameter( description = "service publicId" ) @PathVariable( "serviceId" ) Long serviceId, @RequestHeader("pid") String pid) {
 
-
-        servicesService.deleteProduct(servicePublicId);
+        servicesService.deleteService(serviceId, pid);
         return new ResponseEntity("Successfully Deleted", HttpStatus.OK);
     }
     @GetMapping("service/service_by_owner")

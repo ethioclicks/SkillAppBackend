@@ -53,7 +53,7 @@ public class Services {
     @Column(name = "NUMBER_OF_SERVICES_COMPLETED")
     private Integer numberOfServicesCompleted;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "AVAILABILITY_HOUR_ID")
     private List<AvailabilityHour> availabilityHours;
     @Column(name = "RATE")

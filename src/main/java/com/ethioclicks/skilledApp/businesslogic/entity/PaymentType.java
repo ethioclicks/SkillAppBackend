@@ -18,7 +18,7 @@ public class PaymentType {
         @Id
         @GeneratedValue
         @Column(name = "ID")
-        Integer id;
+        Long id;
         @Column(name = "NAME")
         String name;
 

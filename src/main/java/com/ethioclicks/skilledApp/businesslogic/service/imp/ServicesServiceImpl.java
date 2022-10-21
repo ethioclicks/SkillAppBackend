@@ -1,10 +1,16 @@
 
 package com.ethioclicks.skilledApp.businesslogic.service.imp;
 
+import com.ethioclicks.skilledApp.businesslogic.entity.AvailabilityHour;
+import com.ethioclicks.skilledApp.businesslogic.entity.PaymentType;
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
+import com.ethioclicks.skilledApp.businesslogic.entity.SkillCategory;
 import com.ethioclicks.skilledApp.businesslogic.exception.BadRequestException;
 import com.ethioclicks.skilledApp.businesslogic.model.ServicesModel;
+import com.ethioclicks.skilledApp.businesslogic.repo.AvailabilityHourRepo;
+import com.ethioclicks.skilledApp.businesslogic.repo.PaymentTypeRepo;
 import com.ethioclicks.skilledApp.businesslogic.repo.ServicesRepo;
+import com.ethioclicks.skilledApp.businesslogic.repo.SkillCategoryRepo;
 import com.ethioclicks.skilledApp.businesslogic.service.ServicesService;
 import com.ethioclicks.skilledApp.businesslogic.util.Mapper;
 import com.ethioclicks.skilledApp.security.entity.User;
@@ -27,12 +33,19 @@ public class ServicesServiceImpl implements ServicesService {
    private final ServicesRepo servicesRepo;
   private final   UserRegistrationService userRegistrationService;
   private final UserRepo userRepo;
+  private final PaymentTypeRepo paymentTypeRepo;
+
+  private final SkillCategoryRepo skillCategoryRepo;
+  private final AvailabilityHourRepo  availabilityHourRepo;
 
 
-    public ServicesServiceImpl(ServicesRepo servicesRepo, UserRegistrationService userRegistrationService, UserRepo userRepo) {
+    public ServicesServiceImpl(ServicesRepo servicesRepo, UserRegistrationService userRegistrationService, UserRepo userRepo, PaymentTypeRepo paymentTypeRepo, SkillCategoryRepo skillCategoryRepo, AvailabilityHourRepo availabilityHourRepo) {
         this.servicesRepo = servicesRepo;
         this.userRegistrationService = userRegistrationService;
         this.userRepo = userRepo;
+        this.paymentTypeRepo = paymentTypeRepo;
+        this.skillCategoryRepo = skillCategoryRepo;
+        this.availabilityHourRepo = availabilityHourRepo;
     }
     @Transactional
     @Override
@@ -43,12 +56,14 @@ public class ServicesServiceImpl implements ServicesService {
         }
         User user = userRepo.findByUserPublicId(pid).orElseThrow(()-> new BadRequestException("User not found"));
 
+        SkillCategory skillCategory = skillCategoryRepo.findById(servicesModel.getSkillCategory()).orElseThrow(()-> new BadRequestException("Category not found"));
+        PaymentType paymentType = paymentTypeRepo.findById(servicesModel.getPaymentType()).orElseThrow(()-> new BadRequestException("Payment type is not found"));
         if (servicesModel.getId() != null && !servicesModel.getId().toString().isEmpty()) {
             Services existingService = servicesRepo.findById(servicesModel.getId()).orElseThrow(() -> new BadRequestException("Service id not found"));
 
             if (isServiceOwner(existingService.getServicePublicId(), pid)) {
                 existingService.setDescription(servicesModel.getDescription());
-                existingService.setSkillCategory(servicesModel.getSkillCategory());
+                existingService.setSkillCategory(skillCategory);
                 existingService.setYearInService(servicesModel.getYearInService());
                 existingService.setServiceRegisteredDate(servicesModel.getServiceRegisteredDate());
                 existingService.setSkills(servicesModel.getSkills());
@@ -58,7 +73,7 @@ public class ServicesServiceImpl implements ServicesService {
                 existingService.setPaymentPrice(servicesModel.getPaymentPrice());
                 existingService.setPaymentRemark(servicesModel.getPaymentRemark());
                 existingService.setAvailabilityHours(servicesModel.getAvailabilityHours());
-                existingService.setPaymentType(servicesModel.getPaymentType());
+                existingService.setPaymentType(paymentType);
                 existingService.setPostDate(LocalDateTime.now());
                 return Mapper.toServiceModel(servicesRepo.save(existingService));
             }
@@ -70,10 +85,9 @@ public class ServicesServiceImpl implements ServicesService {
             Services services = Mapper.toServiceEntity(servicesModel);
             String servicePublicId =  UUID.randomUUID().toString();
             services.setServicePublicId(servicePublicId);
-//            services.setUser(user);
             user.addServices(services);
-//            services.setSkillCategory();
-//            services.setUser(user);
+            services.setSkillCategory(skillCategory);
+            services.setPaymentType(paymentType);
             services.setPostDate(LocalDateTime.now());
             return Mapper.toServiceModel(servicesRepo.save(services));
         }
@@ -87,10 +101,20 @@ public class ServicesServiceImpl implements ServicesService {
 
     @Transactional
     @Override
-    public void deleteProduct(String servicePublicId) {
-        Optional<Services> services = servicesRepo.findByServicePublicId(servicePublicId);
+    public void deleteService(Long serviceId,String pid) {
+//        User user = userRepo.findByUserPublicId(pid).orElseThrow(()-> new BadRequestException("User not found"));
+
+        Optional<Services> services = servicesRepo.findById(serviceId);
         if(services.isPresent()){
-            servicesRepo.deleteServicesByServicePublicId(servicePublicId);
+
+            if(isServiceOwner(services.get().getServicePublicId(),pid)){
+                for(AvailabilityHour availabilityHour: services.get().getAvailabilityHours()){
+                    availabilityHourRepo.deleteByIdManual(availabilityHour.getId());
+                }
+                servicesRepo.deleteServicesByServicePublicId(serviceId);
+            }else{
+                throw new BadRequestException("You don't have permission to delete");
+            }
         }
     }
     @Override

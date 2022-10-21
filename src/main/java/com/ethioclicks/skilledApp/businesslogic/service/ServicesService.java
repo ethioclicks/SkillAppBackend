@@ -13,7 +13,7 @@ import java.util.List;
 public interface ServicesService {
     ServicesModel saveService(ServicesModel services, String pid);
     boolean isServiceOwner(String servicePublicId, String pid);
-    void deleteProduct(String servicePublicId);
+    void deleteService(Long serviceId, String pid);
     ServicesModel getServiceByPublicId(String servicePublicId);
 
    List<Services> getServicesByOwnerPublicId(String pid);

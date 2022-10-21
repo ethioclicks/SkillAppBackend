@@ -14,7 +14,7 @@ import java.util.List;
 public class ServicesModel {
     private Long id;
     private String servicePublicId;
-    private SkillCategory skillCategory;
+    private Long skillCategory;
     private String description;
     private Integer yearInService;
     private Date serviceRegisteredDate;
@@ -26,7 +26,7 @@ public class ServicesModel {
     private Integer numberOfServicesCompleted;
     private List<AvailabilityHour> availabilityHours;
     private double rate;
-    private PaymentType paymentType;
+    private Long paymentType;
     private double paymentPrice;
     private String paymentRemark;
     private LocalDateTime postDate;
