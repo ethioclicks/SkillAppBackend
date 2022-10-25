@@ -1,7 +1,9 @@
 package com.ethioclicks.skilledApp.businesslogic.controller;
 
+import com.ethioclicks.skilledApp.businesslogic.entity.LocationCoverage;
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 import com.ethioclicks.skilledApp.businesslogic.model.ServicesModel;
+import com.ethioclicks.skilledApp.businesslogic.service.LocationCoverageService;
 import com.ethioclicks.skilledApp.businesslogic.service.ServicesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,9 +21,11 @@ import java.util.List;
 public class ServiceController {
 
     private final ServicesService servicesService;
+    private final LocationCoverageService locationCoverageService;
 
-    public ServiceController(ServicesService servicesService) {
+    public ServiceController(ServicesService servicesService, LocationCoverageService locationCoverageService) {
         this.servicesService = servicesService;
+        this.locationCoverageService = locationCoverageService;
     }
     @PostMapping("services/create_service")
     @Operation(description = "This API receive services Information and Create Service detail ")
@@ -62,6 +66,18 @@ public class ServiceController {
         return new ResponseEntity(servicesService.getAllServices(pageable), HttpStatus.OK);
     }
 
+    @GetMapping("public/service/location-auto-complete")
+    @Operation(description = "This Api for auto complete ")
+    public ResponseEntity<List<String>>locationList(@Parameter(description = "keyword")@RequestParam("keyword")String keyword){
+//        keyword = keyword.trim();
+//        return new ResponseEntity<>(locationCoverageService.autoCompleteLocationCoverageList(keyword), HttpStatus.OK);
+        List<String> locationCoverages = locationCoverageService.autoCompleteLocationCoverageList(keyword);
+        if(locationCoverages !=null){
+            return new ResponseEntity<>(locationCoverages, HttpStatus.OK);
+        }else {
+            return new ResponseEntity("No Match Found", HttpStatus.OK);
+        }
+    }
 
 
 
