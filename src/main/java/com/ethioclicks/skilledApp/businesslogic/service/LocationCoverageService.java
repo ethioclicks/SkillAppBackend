@@ -12,5 +12,5 @@ public interface LocationCoverageService {
     LocationCoverage updateLocationCoverageService(LocationCoverage locationCoverage);
 
     void deleteLocationCoverage(Long locationId);
-    List<String> autoCompleteLocationCoverageList(String keyword);
+    List<LocationCoverage> autoCompleteLocationCoverageList(String keyword);
 }

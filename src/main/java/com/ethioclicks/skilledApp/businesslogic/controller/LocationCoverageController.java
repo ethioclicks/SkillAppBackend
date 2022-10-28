@@ -5,7 +5,6 @@ import com.ethioclicks.skilledApp.businesslogic.exception.BadRequestException;
 import com.ethioclicks.skilledApp.businesslogic.service.LocationCoverageService;
 import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.repo.UserRepo;
-import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
