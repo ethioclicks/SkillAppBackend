@@ -6,11 +6,8 @@ import java.util.List;
 
 public interface LocationCoverageService {
     LocationCoverage saveLocationCoverage(LocationCoverage locationCoverage);
-
     LocationCoverage getLocationById(Long locationId);
-
     LocationCoverage updateLocationCoverageService(LocationCoverage locationCoverage);
-
     void deleteLocationCoverage(Long locationId);
     List<LocationCoverage> autoCompleteLocationCoverageList(String keyword);
 }
