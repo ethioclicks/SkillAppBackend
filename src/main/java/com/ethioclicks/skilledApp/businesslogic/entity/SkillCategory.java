@@ -1,4 +1,5 @@
-package com.ethioclicks.skilledApp.security.entity;
+package com.ethioclicks.skilledApp.businesslogic.entity;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,15 +12,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "USER_ADDRESS")
+@Table(name = "SKILL_CATEGORY")
 @Data
-public class UserAddress {
+public class SkillCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Long id;
-    @Column(name = "STREET")
-    private String street;
-    @Column(name = "CITY")
-    private String city;
+    @Column(name="CATEGORY_NAME")
+    private String categoryName;
+    @Column(name ="SUB_CATEGORY" )
+    private String subCategory;
+    @Column(name = "DESCRIPTION")
+    private String description;
+
 }

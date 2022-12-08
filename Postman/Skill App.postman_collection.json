@@ -1,0 +1,813 @@
+{
+	"info": {
+		"_postman_id": "876bde90-6ac5-4dbd-a221-eb161968480e",
+		"name": "Skill App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13579848"
+	},
+	"item": [
+		{
+			"name": "createUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"firstName\":\"User\",\r\n\"lastName\":\"User Last\",\r\n\"phoneNumber\":\"0922787213\",\r\n\"email\":\"samrit.ayalew@gmail.com\",\r\n\"userPassword\":\"hairaer02@gmail.com\",\r\n\"city\":\"addis ababa\",\r\n\"subCity\": \"Yeka\",\r\n\"biography\":\" I am professional Eletrician \",\r\n\"profileImageUrl\":\"https://play-lh.googleusercontent.com/-u-oG-Ni_pco9h7zc3CQl-lFkKJjztO3RGZMjnbaDiznnbXoMQZYUjITHN0BVxYHBg=w240-h480-rw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/public/createUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authicateUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\"userName\":\"hairaer02@gmail.com\",\r\n\"password\":\"hairaer02@gmail.com\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/public/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify-email",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "pid",
+						"value": "05258b91-9da8-479d-b911-7c723018efb1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"verifiedEmail\":\"samrit.ayalew@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/public/verify-email",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"verify-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYWlyYWVyMjAyQGdtYWlsLmNvbSIsImV4cCI6MTY2MzQzNTY0MSwiaWF0IjoxNjYzNDE3NjQxfQ.rA7Ndi_NLmCP4h_OuOKlte3DVOwDE2wOcRTkLjibv8cpUrZMZc9VA6r5pUYU6WCRE2R-vd8JXqs0lK6afjoGIw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "pid",
+						"value": "05258b91-9da8-479d-b911-7c723018efb1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorization}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "pid",
+						"value": "492fe6cc-583e-45ce-b0ea-2e193f188fcd",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"userPublicId\": \"492fe6cc-583e-45ce-b0ea-2e193f188fcd\",\r\n    \"firstName\": \"Samrawit\",\r\n    \"lastName\": \"Ayalew\",\r\n    \"phoneNumber\": \"09227345578\",\r\n    \"biography\": \" I am professional Eletrician \",\r\n    \"userPassword\": \"$2a$10$bh17YSbL6sQcL4Ppv4GJw.yHLnljPXMzbHoAKslDkH3Hd5Ciy.Frfcu\",\r\n    \"email\": \"hairaer02@gmail.com\",\r\n    \"city\": \"addis ababa\",\r\n    \"subCity\": \"Yeka\",\r\n    \"isApproved\": false,\r\n    \"isSuspended\": false,\r\n    \"services\": [],\r\n    \"agency\": null,\r\n    \"profileImageUrl\": \"https://play-lh.googleusercontent.com/-u-oG-Ni_pco9h7zc3CQl-lFkKJjztO3RGZMjnbaDiznnbXoMQZYUjITHN0BVxYHBg=w240-h480-rw\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/public/check-token?token=94aff9&email=hairaer02@gmail.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"check-token"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "94aff9"
+						},
+						{
+							"key": "email",
+							"value": "hairaer02@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send-email-conformation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"hairaer02@gmail.com\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/public/send-email-conformation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"send-email-conformation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePassword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "pid",
+						"value": "492fe6cc-583e-45ce-b0ea-2e193f188fcd",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"hairaer02@gmail.com\",\r\n    \"password\": \"hairaer0292@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/updatePassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserProfileBypid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorization}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "pid",
+						"value": "492fe6cc-583e-45ce-b0ea-2e193f188fcd",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Services",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "userPublicId",
+						"value": "4494d5ba-b4b5-45af-98ef-c8372d9a633b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n            \"id\": 12,\r\n            \"servicePublicId\": \"d8caf2fe-a31c-44ef-98df-15e3af0629ad\",\r\n            \"skillCategory\": 8,\r\n            \"description\": \"the best eletrician in town,available 24/7 for car\",\r\n            \"yearInService\": 6,\r\n            \"serviceRegisteredDate\": null,\r\n            \"skills\": \"eletrican, mechanic\",\r\n            \"imageUrl\": \"https://st2.depositphotos.com/1158045/5431/i/950/depositphotos_54310443-stock-photo-auto-electrician-troubleshooting-car-engine.jpg\",\r\n            \"user\": {\r\n                \"id\": 4,\r\n                \"userName\": \"hairaer02@gmail.com\",\r\n                \"passWord\": \"$2a$10$suVkEB4C59mGASVPi.ZDT.rsN4YZvNqKEYHdV3Sja9fwnm5q08Hr2\",\r\n                \"roles\": [],\r\n                \"createdOn\": \"2022-10-21T10:57:43.000+00:00\",\r\n                \"firstName\": \"User\",\r\n                \"lastName\": \"User Last\",\r\n                \"biography\": \" I am professional Eletrician \",\r\n                \"phoneNumber\": \"09227345578\",\r\n                \"userPublicId\": \"4494d5ba-b4b5-45af-98ef-c8372d9a633b\",\r\n                \"city\": \"addis ababa\",\r\n                \"subCity\": \"Yeka\",\r\n                \"profileImageUrl\": \"https://play-lh.googleusercontent.com/-u-oG-Ni_pco9h7zc3CQl-lFkKJjztO3RGZMjnbaDiznnbXoMQZYUjITHN0BVxYHBg=w240-h480-rw\",\r\n                \"verifiedEmail\": null,\r\n                \"isEmailVerified\": false,\r\n                \"isApproved\": false,\r\n                \"isSuspended\": false,\r\n                \"agency\": null,\r\n                \"locked\": false,\r\n                \"enabled\": true\r\n            },\r\n            \"locationCoverage\": \" megenagna, meksiko, 22, cmc\",\r\n            \"availabilityTypeId\": \"APPOINTMENT\",\r\n            \"numberOfServicesCompleted\": 25,\r\n            \"availabilityHours\": [\r\n                {\r\n                    \"id\": 16,\r\n                    \"day_of_week\": \"MONDAY\",\r\n                    \"startingHour\": \"2:30\",\r\n                    \"endingHour\": \"12:30\"\r\n                }\r\n            ],\r\n            \"rate\": 0.0,\r\n            \"usersRated\": 0,\r\n            \"paymentType\": 2,\r\n            \"paymentPrice\": 2560.0,\r\n            \"paymentRemark\": \"you can pay by cash or bank transfer\",\r\n            \"postDate\": \"2022-10-25T15:24:43\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/services/create_service",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"services",
+						"create_service"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "service by owner",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "pid",
+						"value": "c3eca526-3db7-4de7-be66-ae7378caabe3",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/service/service_by_owner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"service",
+						"service_by_owner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all services",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/public/services/all?page=0&size=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"services",
+						"all"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Service By Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "pid",
+						"value": "4494d5ba-b4b5-45af-98ef-c8372d9a633b",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/service/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"service",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "userPublicId",
+						"value": "4494d5ba-b4b5-45af-98ef-c8372d9a633b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\r\n            \"id\": 11,\r\n            \"servicePublicId\": \"19ef4aa9-22a8-4528-8e87-08275157842f\",\r\n            \"skillCategory\":8 ,\r\n            \"description\": \"the best eletrician in town,available 24/7\",\r\n            \"yearInService\": 5,\r\n            \"serviceRegisteredDate\": null,\r\n            \"skills\": \"eletrican, mechanic\",\r\n            \"imageUrl\": \"https://st2.depositphotos.com/1158045/5431/i/950/depositphotos_54310443-stock-photo-auto-electrician-troubleshooting-car-engine.jpg\",\r\n            \"user\": {\r\n                \"id\": 4,\r\n                \"userName\": \"hairaer02@gmail.com\",\r\n                \"passWord\": \"$2a$10$suVkEB4C59mGASVPi.ZDT.rsN4YZvNqKEYHdV3Sja9fwnm5q08Hr2\",\r\n                \"roles\": [],\r\n                \"createdOn\": \"2022-10-21T10:57:43.000+00:00\",\r\n                \"firstName\": \"User\",\r\n                \"lastName\": \"User Last\",\r\n                \"biography\": \" I am professional Eletrician \",\r\n                \"phoneNumber\": \"09227345578\",\r\n                \"userPublicId\": \"4494d5ba-b4b5-45af-98ef-c8372d9a633b\",\r\n                \"city\": \"addis ababa\",\r\n                \"subCity\": \"Yeka\",\r\n                \"profileImageUrl\": \"https://play-lh.googleusercontent.com/-u-oG-Ni_pco9h7zc3CQl-lFkKJjztO3RGZMjnbaDiznnbXoMQZYUjITHN0BVxYHBg=w240-h480-rw\",\r\n                \"verifiedEmail\": null,\r\n                \"isEmailVerified\": false,\r\n                \"isApproved\": false,\r\n                \"isSuspended\": false,\r\n                \"agency\": null,\r\n                \"locked\": false,\r\n                \"enabled\": true\r\n            },\r\n            \"locationCoverage\": \" megenagna, meksiko, 22\",\r\n            \"availabilityTypeId\": \"APPOINTMENT\",\r\n            \"numberOfServicesCompleted\": 25,\r\n            \"availabilityHours\": [\r\n                {\r\n                    \"id\": 15,\r\n                    \"day_of_week\": \"MONDAY\",\r\n                    \"startingHour\": \"2:30\",\r\n                    \"endingHour\": \"12:30\"\r\n                }\r\n            ],\r\n            \"rate\": 0.0,\r\n            \"usersRated\": 0,\r\n            \"paymentType\":2, \r\n            \"paymentPrice\": 2500.0,\r\n            \"paymentRemark\": \"you can pay by cash or bank transfer\",\r\n            \"postDate\": \"2022-10-21T14:00:42\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/services/create_service",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"services",
+						"create_service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLocation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "pid",
+						"value": "988f514f-1c16-4831-9cb6-93f5053398ec",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Meganagna\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/admin/location_coverage/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"location_coverage",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create skill app",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "pid",
+						"value": "4494d5ba-b4b5-45af-98ef-c8372d9a633b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ayat\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/admin/location_coverage/create_location_coverage",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"location_coverage",
+						"create_location_coverage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLocationbyId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "pid",
+						"value": "{{pid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8081/admin/location_coverage/location_coverage_detail/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"admin",
+						"location_coverage",
+						"location_coverage_detail",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Location auto complete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/public/service/location-auto-complete?keyword=meg",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"service",
+						"location-auto-complete"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "meg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "service detail by publicId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/public/service/service_detail_by_publicId?servicePublicId=813d5dce-a5c6-4f26-b1f2-f6ad3af85c36",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"service",
+						"service_detail_by_publicId"
+					],
+					"query": [
+						{
+							"key": "servicePublicId",
+							"value": "813d5dce-a5c6-4f26-b1f2-f6ad3af85c36"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createLocationCoverage",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "pid",
+						"value": "{{pid}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Meganagna\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/admin/location_coverage/create_location_coverage",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"location_coverage",
+						"create_location_coverage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete location Coverage by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorazation}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "pid",
+						"value": "{{pid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8081/admin/location_coverage/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"admin",
+						"location_coverage",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "authorization",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYWlyYWVyMDJAZ21haWwuY29tIiwiZXhwIjoxNjY0MDM2MjYzLCJpYXQiOjE2NjQwMTgyNjN9.W0ZS06f62OKVHyMf_N5Pte_ga2pWWpVN3QRflAyA2nJTWFZ-dsUckHmf2xda1eJ6gaFywew_hZBM0mvAhihvTg"
+		}
+	]
+}

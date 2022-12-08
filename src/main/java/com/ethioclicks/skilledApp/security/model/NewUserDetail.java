@@ -1,6 +1,5 @@
 package com.ethioclicks.skilledApp.security.model;
 
-import com.ethioclicks.skilledApp.security.entity.UserAddress;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,15 +19,17 @@ public class NewUserDetail{
     private String userPublicId;
 
     @NotNull(message = "First name can not be empty")
-    @Size(min = 2,message = "Full name should be at least 2 characters")
+    @Size(min = 2,message = "Fist Name should be at least 2 characters")
     private String firstName;
     @NotNull(message = "Last name can not be empty")
-    @Size(min = 2,message = "Full name should be at least 2 characters")
+    @Size(min = 2,message = "Last Name should be at least 2 characters")
     private String lastName;
     @NotBlank(message = "Phone is required")
     @NotNull(message = "Phone can not be empty")
     @Size(min = 10,message = "Phone number should be at least 10 digit")
     private String phoneNumber;
+    @NotNull( message = "User Biography can not be empty")
+    private String biography;
     @Size(min = 6,max = 50,message = "Password should be at least 6 and max 20 characters")
     @NotNull(message = "Password name can not be empty")
     private String userPassword;
@@ -36,15 +37,15 @@ public class NewUserDetail{
     @NotNull(message = "Email name can not be empty")
     @Email(message = "Email should be in proper format")
     private String email;
-
-    @NotNull(message = "User Address can not be empty")
-    private UserAddress address;
-
-    @NotNull(message = "Questions and Answer can not be empty")
-    private String questionsAndAnswers[];
-
+    @NotNull(message = "City can not be empty")
+    private String city;
+    @NotNull(message = "sub city can not be empty")
+    private String subCity;
+    private Boolean isApproved = Boolean.FALSE;
+    private Boolean isSuspended = Boolean.FALSE;
+    @NotNull(message = "Profile Image can not be empty")
+    private String profileImageUrl;
     private String verifiedEmail;
-
     private Boolean isEmailVerified = Boolean.FALSE;
 
 }

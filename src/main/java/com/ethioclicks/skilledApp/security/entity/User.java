@@ -1,8 +1,9 @@
 package com.ethioclicks.skilledApp.security.entity;
 
+import com.ethioclicks.skilledApp.businesslogic.entity.Agency;
+import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 import com.ethioclicks.skilledApp.security.model.NewUserDetail;
 import com.ethioclicks.skilledApp.security.model.UserProfileModel;
-import com.ethioclicks.skilledApp.security.utils.Util;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -18,7 +19,7 @@ import java.util.*;
 @Table(name = "USER")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     Integer id;
     @Column(name = "USER_NAME")
@@ -41,36 +42,60 @@ public class User {
     private String firstName;
     @Column(name = "LAST_NAME")
     private String lastName;
+    @Column(name = "BIOGRAPHY", length = 1000)
+    private String biography;
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
     @Column(name = "USER_PUBLIC_ID")
     private String userPublicId;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USER_ADDRESS_ID")
-    private UserAddress address;
+    @Column(name = "CITY")
+    private String city;
+    @Column(name = "SUB_CITY")
+    private String subCity;
 
-//  Security Check Questions Answer
-    @Column(name = "QUESTIONSANDANSWERS")
-    private String questionsAndAnswers;
+    @Column(name = "PROFILE_IMAGE_URL")
+    private String profileImageUrl;
 
     @Column(name = "VERIFIED_EMAIL")
     private String verifiedEmail;
     @Column(name = "IS_EMAIL_VERIFIED")
     private Boolean isEmailVerified = Boolean.FALSE;
+    @Column(name = "IS_APPROVED")
+    private Boolean isApproved = Boolean.FALSE;
+    @Column(name = "IS_SUSPENDED")
+    private Boolean isSuspended = Boolean.FALSE;
 
+    @OneToMany(cascade = CascadeType.ALL,  fetch = FetchType.EAGER,orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    @JoinColumn(name = "USER_ID")
+    private Set<Services> services = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="AGENCY_ID")
+    private Agency agency;
 
+    public void addServices(Services services){
+        this.services.add(services);
+        services.setUser(this);
+
+    }
     public User fromUserProfile(UserProfileModel userProfileModel){
         return this.builder()
                 .userName(userProfileModel.getEmail())
                 .passWord(userProfileModel.getUserPassword())
                 .firstName(userProfileModel.getFirstName())
                 .lastName(userProfileModel.getLastName())
-                .address(userProfileModel.getAddress())
+                .phoneNumber(userProfileModel.getPhoneNumber())
                 .userPublicId(userProfileModel.getUserPublicId())
+                .biography(userProfileModel.getBiography())
+                .city(userProfileModel.getCity())
+                .subCity(userProfileModel.getSubCity())
+                .isApproved(userProfileModel.getIsApproved())
+                .isSuspended(userProfileModel.getIsSuspended())
+                .profileImageUrl(userProfileModel.getProfileImageUrl())
+                .services(userProfileModel.getServices())
                 .build();
     }
-
     public NewUserDetail getUserDetailModel(User savedUser) {
         return NewUserDetail.builder()
                 .userPublicId(this.userPublicId)
@@ -79,8 +104,12 @@ public class User {
                 .lastName(this.lastName)
                 .userPassword(this.passWord)
                 .phoneNumber(this.phoneNumber)
-                .address(this.address)
-                .questionsAndAnswers(Util.stringToArray(this.questionsAndAnswers))
+                .city(this.city)
+                .subCity(this.subCity)
+                .biography(this.biography)
+                .isSuspended(this.isSuspended)
+                .isApproved(this.isApproved)
+                .profileImageUrl(this.profileImageUrl)
                 .isEmailVerified(this.isEmailVerified)
                 .verifiedEmail(this.verifiedEmail)
                 .build();
