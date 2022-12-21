@@ -38,7 +38,6 @@ public class ServicesServiceImpl implements ServicesService {
   private final SkillCategoryRepo skillCategoryRepo;
   private final AvailabilityHourRepo  availabilityHourRepo;
 
-
     public ServicesServiceImpl(ServicesRepo servicesRepo, UserRegistrationService userRegistrationService, UserRepo userRepo, PaymentTypeRepo paymentTypeRepo, SkillCategoryRepo skillCategoryRepo, AvailabilityHourRepo availabilityHourRepo) {
         this.servicesRepo = servicesRepo;
         this.userRegistrationService = userRegistrationService;
@@ -98,7 +97,6 @@ public class ServicesServiceImpl implements ServicesService {
         Optional<Services> services = servicesRepo.findByServicePublicId(servicePublicId);
         return user != null && services.isPresent() && user.getUserPublicId().equals(services.get().getUser().getUserPublicId());
     }
-
     @Transactional
     @Override
     public void deleteService(Long serviceId,String pid) {

@@ -14,6 +14,7 @@ public class Mapper {
         if(services!=null){
             ServicesModel servicesModel = new ServicesModel();
             servicesModel.setId(services.getId());
+            servicesModel.setTag(services.getTag());
             servicesModel.setServicePublicId(services.getServicePublicId());
 //            servicesModel.setSkillCategory(services.getSkillCategory().getId());
             servicesModel.setDescription(services.getDescription());
@@ -39,6 +40,7 @@ public class Mapper {
         if(servicesModel!=null){
             Services services = new Services();
             services.setId(servicesModel.getId());
+            services.setTag(servicesModel.getTag());
             services.setServicePublicId(servicesModel.getServicePublicId());
 //            services.setSkillCategory(servicesModel.getSkillCategory());
             services.setDescription(servicesModel.getDescription());

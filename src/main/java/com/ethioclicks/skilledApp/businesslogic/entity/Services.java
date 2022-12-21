@@ -25,6 +25,9 @@ public class Services {
     private Long id;
     @Column(name = "SERVICE_PUBLIC_ID")
     private String servicePublicId;
+    @Lob
+    @Column(name = "TAG", length = 1000 )
+    String tag;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SKILL_CATEGORY_ID")
     private SkillCategory skillCategory;

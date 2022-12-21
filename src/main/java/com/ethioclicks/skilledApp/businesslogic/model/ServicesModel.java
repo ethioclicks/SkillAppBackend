@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class ServicesModel {
     private Long id;
+    private String tag;
     private String servicePublicId;
     private Long skillCategory;
     private String description;
