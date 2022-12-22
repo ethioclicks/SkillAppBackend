@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/service")
+@RequestMapping("/public")
 public class SearchServiceController {
     private final SearchService searchService;
 
     public SearchServiceController(SearchService searchService) {
         this.searchService = searchService;
     }
-
-    @GetMapping("/service-auto-complete")
+    @GetMapping("/service/service-auto-complete")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(description = "This API receive Params Key 'keyword' and give suggestions")
     public ResponseEntity<Page<Services>> searchServices(@Parameter(description = "keyword")
@@ -35,4 +36,11 @@ public class SearchServiceController {
                 return new ResponseEntity(searchService.serviceSearch(keyword.trim(), rate), HttpStatus.OK);
     }
 }
+    @GetMapping("/service/location-coverage")
+    @SecurityRequirement(name = "bearerAuth")
+    @Operation(description = "This API accept location coverage and return the services")
+    public ResponseEntity<Page<Services>> getServiceLocationCoverage(@Parameter(description = "location-coverage")  @RequestParam("location-coverage") String locationCoverage,
+                                                           @PageableDefault Pageable pageable){
+        return new ResponseEntity(searchService.getListOfServicesByLocationCoverage(locationCoverage, pageable), HttpStatus.OK);
+    }
 }

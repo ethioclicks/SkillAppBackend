@@ -3,9 +3,11 @@ package com.ethioclicks.skilledApp.businesslogic.service.imp;
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 import com.ethioclicks.skilledApp.businesslogic.repo.ServicesRepo;
 import com.ethioclicks.skilledApp.businesslogic.service.SearchService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -41,7 +43,6 @@ public class SearchServiceImpl implements SearchService {
         }
         return matchingProducts;
     }
-
     @Override
     public List<Services> serviceSearch(String keyword, Integer rate) {
         List<Services> matchingProducts = new ArrayList<>();
@@ -66,11 +67,14 @@ public class SearchServiceImpl implements SearchService {
         }
         return matchingProducts;
     }
-
+    @Override
+    public List<Services> getListOfServicesByLocationCoverage(String location , Pageable pageable) {
+        return servicesRepo.getServicesByLocationCoverage(location, pageable);
+    }
     private String[] getSearchWords(String keyword) {
         String[] searchWords = keyword.split(" ");
         if (searchWords != null && searchWords.length > 0) {
-            // the best  shop
+
             for (int i = 0; i < searchWords.length; i++) {
                 searchWords[i] = searchWords[i].trim();
             }

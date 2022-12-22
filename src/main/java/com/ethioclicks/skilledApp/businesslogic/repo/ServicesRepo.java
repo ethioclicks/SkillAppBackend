@@ -2,6 +2,7 @@ package com.ethioclicks.skilledApp.businesslogic.repo;
 
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 import com.ethioclicks.skilledApp.security.entity.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,5 +38,6 @@ public interface ServicesRepo extends CrudRepository<Services,Long> , JpaSpecifi
             " SERVICES.LOCATION_COVERAGE like %:keyword% )" +
             " AND SERVICES.RATE  BETWEEN :rate and 5" , nativeQuery = true)
     List<Services> getServiceByKeyword( @Param("keyword") String keyword, @Param("rate") Integer rate);
+    List<Services>getServicesByLocationCoverage(String locationCoverage, Pageable pageable);
 }
 
