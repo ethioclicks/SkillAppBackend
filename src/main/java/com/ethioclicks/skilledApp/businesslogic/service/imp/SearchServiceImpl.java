@@ -22,7 +22,6 @@ public class SearchServiceImpl implements SearchService {
         List<Services> matchingProducts = new ArrayList<>();
 
         String[] searchWords = getSearchWords(keyword);
-
         if (searchWords != null  ) {
             if(searchWords.length > 1){
                 List partialMatchProducts = new ArrayList();
@@ -39,10 +38,35 @@ public class SearchServiceImpl implements SearchService {
             if (searchWords.length == 1) {
                 matchingProducts = servicesRepo.getServiceByKeyword(keyword);
             }
-
         }
         return matchingProducts;
     }
+
+    @Override
+    public List<Services> serviceSearch(String keyword, Integer rate) {
+        List<Services> matchingProducts = new ArrayList<>();
+        String[] searchWords = getSearchWords(keyword);
+
+        if (searchWords != null  ) {
+            if(searchWords.length > 1){
+                List partialMatchProducts = new ArrayList();
+                for (String searchWord : searchWords) {
+                    List<Services> partialResult = servicesRepo.getServiceByKeyword(searchWord, rate);
+                    if (partialResult != null && !partialResult.isEmpty()) {
+                        partialMatchProducts.addAll(partialResult);
+                    }
+                }
+                if (!partialMatchProducts.isEmpty()) {
+                    matchingProducts.addAll(partialMatchProducts);
+                }
+            }
+            if (searchWords.length == 1) {
+                matchingProducts = servicesRepo.getServiceByKeyword(keyword);
+            }
+        }
+        return matchingProducts;
+    }
+
     private String[] getSearchWords(String keyword) {
         String[] searchWords = keyword.split(" ");
         if (searchWords != null && searchWords.length > 0) {

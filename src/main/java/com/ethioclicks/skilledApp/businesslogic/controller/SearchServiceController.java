@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@RequestMapping("/service")
+@RequestMapping("/service")
 public class SearchServiceController {
-
     private final SearchService searchService;
 
     public SearchServiceController(SearchService searchService) {
@@ -26,10 +25,14 @@ public class SearchServiceController {
     @GetMapping("/service-auto-complete")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(description = "This API receive Params Key 'keyword' and give suggestions")
-    public ResponseEntity<Page<Services>> searchServices(@Parameter(description = "keyword")@RequestParam("keyword") String keyword
+    public ResponseEntity<Page<Services>> searchServices(@Parameter(description = "keyword")
+                                                             @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword
+                                                            ,@RequestParam(name = "rate", required = false) Integer rate) {
+            if(rate==null){
+                return new ResponseEntity(searchService.serviceSearch(keyword.trim()), HttpStatus.OK);
 
-    ){
-        keyword = keyword.trim();
-        return new ResponseEntity(searchService.serviceSearch(keyword), HttpStatus.OK);
+            } else {
+                return new ResponseEntity(searchService.serviceSearch(keyword.trim(), rate), HttpStatus.OK);
     }
+}
 }

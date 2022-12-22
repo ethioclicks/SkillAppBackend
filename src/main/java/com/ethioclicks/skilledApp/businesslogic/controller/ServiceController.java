@@ -68,7 +68,7 @@ public class ServiceController {
 
     @GetMapping("public/service/location-auto-complete")
     @Operation(description = "This Api for auto complete ")
-    public ResponseEntity locationList(@Parameter(description = "keyword")@RequestParam("keyword")String keyword){
+    public ResponseEntity locationList(@Parameter(description = "keyword")@RequestParam(name="keyword")String keyword){
         keyword = keyword.trim();
         return new ResponseEntity<>(locationCoverageService.autoCompleteLocationCoverageList(keyword), HttpStatus.OK);
 
