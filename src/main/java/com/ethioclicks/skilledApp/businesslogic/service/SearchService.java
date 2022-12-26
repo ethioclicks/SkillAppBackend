@@ -9,5 +9,5 @@ import java.util.List;
 public interface SearchService {
     List<Services> serviceSearch(String keyword);
     List<Services> serviceSearch(String keyword,Integer rate);
-    List<Services>getListOfServicesByLocationCoverage(String location, Pageable pageable);
+    List<Services>getListOfServicesByLocationCoverage(String skillCategory,String location, Pageable pageable);
 }

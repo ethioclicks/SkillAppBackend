@@ -38,6 +38,9 @@ public interface ServicesRepo extends CrudRepository<Services,Long> , JpaSpecifi
             " SERVICES.LOCATION_COVERAGE like %:keyword% )" +
             " AND SERVICES.RATE  BETWEEN :rate and 5" , nativeQuery = true)
     List<Services> getServiceByKeyword( @Param("keyword") String keyword, @Param("rate") Integer rate);
-    List<Services>getServicesByLocationCoverage(String locationCoverage, Pageable pageable);
+    @Query(value = " SELECT * FROM SERVICES  INNER JOIN SKILL_CATEGORY " +
+            "ON SERVICES.SKILL_CATEGORY_ID = SKILL_CATEGORY.ID" +
+            " WHERE SKILL_CATEGORY.CATEGORY_NAME LIKE %:skillCategory% AND  SERVICES.LOCATION_COVERAGE like %:locationCoverage% ", nativeQuery = true)
+    List<Services>findServicesByLocationCoverage(String skillCategory, String locationCoverage, Pageable pageable);
 }
 

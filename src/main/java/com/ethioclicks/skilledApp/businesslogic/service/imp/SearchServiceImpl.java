@@ -68,8 +68,9 @@ public class SearchServiceImpl implements SearchService {
         return matchingProducts;
     }
     @Override
-    public List<Services> getListOfServicesByLocationCoverage(String location , Pageable pageable) {
-        return servicesRepo.getServicesByLocationCoverage(location, pageable);
+    public List<Services> getListOfServicesByLocationCoverage(String skillCategory, String location, Pageable pageable) {
+
+        return servicesRepo.findServicesByLocationCoverage(skillCategory, location, pageable);
     }
     private String[] getSearchWords(String keyword) {
         String[] searchWords = keyword.split(" ");

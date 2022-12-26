@@ -38,9 +38,10 @@ public class SearchServiceController {
 }
     @GetMapping("/service/location-coverage")
     @SecurityRequirement(name = "bearerAuth")
-    @Operation(description = "This API accept location coverage and return the services")
+    @Operation(description = "This API accept skill and  location coverage and return the services")
     public ResponseEntity<Page<Services>> getServiceLocationCoverage(@Parameter(description = "location-coverage")  @RequestParam("location-coverage") String locationCoverage,
-                                                           @PageableDefault Pageable pageable){
-        return new ResponseEntity(searchService.getListOfServicesByLocationCoverage(locationCoverage, pageable), HttpStatus.OK);
+                                                                     @RequestParam("skill") String skill,
+                                                                    @PageableDefault Pageable pageable){
+        return new ResponseEntity(searchService.getListOfServicesByLocationCoverage(skill, locationCoverage, pageable), HttpStatus.OK);
     }
 }
