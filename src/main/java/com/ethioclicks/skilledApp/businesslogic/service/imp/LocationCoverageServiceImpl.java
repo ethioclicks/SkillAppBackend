@@ -32,7 +32,6 @@ public class LocationCoverageServiceImpl implements LocationCoverageService {
 
         return locationCoverageRepo.save(newLocation);
     }
-
     @Override
     public LocationCoverage getLocationById(Long locationId) {
         Optional<LocationCoverage> locationCoverage = locationCoverageRepo.findById(locationId);
@@ -41,7 +40,6 @@ public class LocationCoverageServiceImpl implements LocationCoverageService {
         }
         return locationCoverage.get();
     }
-
     @Override
     public LocationCoverage updateLocationCoverageService(LocationCoverage locationCoverage) {
         if (locationCoverage == null) {
@@ -54,27 +52,22 @@ public class LocationCoverageServiceImpl implements LocationCoverageService {
         }
         throw new BadRequestException("location coverage id is not found");
     }
-
     @Override
     public void deleteLocationCoverage(Long locationId) {
         locationCoverageRepo.deleteById(locationId);
     }
-
     private String[] getSearchWords(String keyword) {
         String[] searchWords = keyword.split(" ");
         if (searchWords != null && searchWords.length > 0) {
-            // the best  shop
             for (int i = 0; i < searchWords.length; i++) {
                 searchWords[i] = searchWords[i].trim();
             }
         }
         return searchWords;
     }
-
     @Override
     public List<LocationCoverage> autoCompleteLocationCoverageList(String keyword) {
         List<LocationCoverage> matchingProducts = new ArrayList<>();
-
         String[] searchWords = getSearchWords(keyword);
 
         if (searchWords != null) {
@@ -93,7 +86,6 @@ public class LocationCoverageServiceImpl implements LocationCoverageService {
             if (searchWords.length == 1) {
                 matchingProducts = locationCoverageRepo.getLocationCoverageByKeyword(keyword);
             }
-
         }
         return matchingProducts;
     }

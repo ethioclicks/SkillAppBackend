@@ -75,7 +75,6 @@ public class SearchServiceImpl implements SearchService {
     private String[] getSearchWords(String keyword) {
         String[] searchWords = keyword.split(" ");
         if (searchWords != null && searchWords.length > 0) {
-
             for (int i = 0; i < searchWords.length; i++) {
                 searchWords[i] = searchWords[i].trim();
             }

@@ -1,8 +1,6 @@
 package com.ethioclicks.skilledApp.businesslogic.model;
 
-import com.ethioclicks.skilledApp.businesslogic.entity.AvailabilityHour;
-import com.ethioclicks.skilledApp.businesslogic.entity.PaymentType;
-import com.ethioclicks.skilledApp.businesslogic.entity.SkillCategory;
+import com.ethioclicks.skilledApp.businesslogic.entity.*;
 import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.Data;
 
@@ -26,7 +24,9 @@ public class ServicesModel {
     private String  availabilityTypeId;
     private Integer numberOfServicesCompleted;
     private List<AvailabilityHour> availabilityHours;
-    private double rate;
+    private List<Reviews> reviews;
+    private List<Projects> projects;
+    private List<ServiceImage>serviceImages;
     private Long paymentType;
     private double paymentPrice;
     private String paymentRemark;

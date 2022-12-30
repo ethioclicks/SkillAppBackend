@@ -29,13 +29,13 @@
 //    private final UserRegistrationService userRegistrationService;
 //    private final ServicesService servicesService;
 //    private final SkillCategoryService skillCategoryService;
-//    private final FeedbackService feedbackService;
+//    private final ReviewsService feedbackService;
 //    private final RateService rateService;
 //    private final AgencyService agencyService;
 //    private final RoleRepo roleRepo;
 //    private final UserRepo userRepo;
 //
-//    public DataInitialization(UserRegistrationService userRegistrationService, ServicesService servicesService, SkillCategoryService skillCategoryService, FeedbackService feedbackService, RateService rateService, AgencyService agencyService, RoleRepo roleRepo, UserRepo userRepo) {
+//    public DataInitialization(UserRegistrationService userRegistrationService, ServicesService servicesService, SkillCategoryService skillCategoryService, ReviewsService feedbackService, RateService rateService, AgencyService agencyService, RoleRepo roleRepo, UserRepo userRepo) {
 //        this.userRegistrationService = userRegistrationService;
 //
 //        this.servicesService = servicesService;
