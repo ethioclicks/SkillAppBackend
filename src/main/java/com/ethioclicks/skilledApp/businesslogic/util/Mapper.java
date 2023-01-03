@@ -3,12 +3,14 @@ package com.ethioclicks.skilledApp.businesslogic.util;
 
 import com.ethioclicks.skilledApp.businesslogic.entity.Agency;
 import com.ethioclicks.skilledApp.businesslogic.entity.Projects;
+import com.ethioclicks.skilledApp.businesslogic.entity.Reviews;
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
 //import com.ethioclicks.skilledApp.businesslogic.entity.ServicesFeedback;
 import com.ethioclicks.skilledApp.businesslogic.enums.FEEDBACK_TYPE;
 import com.ethioclicks.skilledApp.businesslogic.model.AgencyModel;
 //import com.ethioclicks.skilledApp.businesslogic.model.ServicesFeedbackModel;
 import com.ethioclicks.skilledApp.businesslogic.model.ProjectsModel;
+import com.ethioclicks.skilledApp.businesslogic.model.ReviewsModel;
 import com.ethioclicks.skilledApp.businesslogic.model.ServicesModel;
 
 import javax.swing.text.html.Option;
@@ -136,6 +138,32 @@ public class Mapper {
             projectsModel.setProjectImages(projects.getProjectImages());
         }
         return null;
+    }
+
+    public static ReviewsModel toReviewModel(Reviews reviews){
+        if(reviews!=null){
+            ReviewsModel reviewsModel = new ReviewsModel();
+            reviewsModel.setId(reviews.getId());
+            reviewsModel.setCurrentTime(reviews.getCurrentTime());
+            reviewsModel.setUser(reviews.getUser());
+            reviewsModel.setFeedback(reviews.getFeedback());
+            reviewsModel.setRating(reviews.getRating());
+            reviewsModel.setReplay(reviewsModel.getReplay());
+            reviewsModel.setIsReply(reviews.getIsReply());
+        }
+        return  null;
+    }
+    public static Reviews toReviewEntity(ReviewsModel reviewsModel){
+        if(reviewsModel!=null){
+            Reviews reviews = new Reviews();
+            reviews.setId(reviewsModel.getId());
+            reviews.setCurrentTime(reviewsModel.getCurrentTime());
+            reviews.setUser(reviewsModel.getUser());
+            reviews.setFeedback(reviewsModel.getFeedback());
+            reviews.setRating(reviewsModel.getRating());
+            reviews.setReply(reviewsModel.getReplay());
+        }
+        return  null;
     }
 //    public static ServicesFeedback toServiceFeedback(ServicesFeedbackModel servicesFeedbackModel) {
 //        if(servicesFeedbackModel!=null){

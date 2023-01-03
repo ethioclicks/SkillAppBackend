@@ -2,14 +2,24 @@ package com.ethioclicks.skilledApp.businesslogic.service.imp;
 
 
 
+import com.ethioclicks.skilledApp.businesslogic.entity.Reviews;
+import com.ethioclicks.skilledApp.businesslogic.entity.Services;
+import com.ethioclicks.skilledApp.businesslogic.model.ReviewsModel;
 import com.ethioclicks.skilledApp.businesslogic.repo.ReviewsRepo;
 import com.ethioclicks.skilledApp.businesslogic.repo.ServicesRepo;
 import com.ethioclicks.skilledApp.businesslogic.service.ReviewsService;
 
+import com.ethioclicks.skilledApp.businesslogic.util.Mapper;
+import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -17,12 +27,36 @@ public class ReviewsServiceImpl implements ReviewsService {
 
     private final UserRegistrationService userRegistrationService;
     private final ServicesRepo servicesRepo;
-    private final ReviewsRepo servicesFeedBackRepo;
+    private final ReviewsRepo reviewsRepo;
 
     public ReviewsServiceImpl(UserRegistrationService userRegistrationService, ServicesRepo servicesRepo, ReviewsRepo servicesFeedbackRepo) {
         this.userRegistrationService = userRegistrationService;
         this.servicesRepo = servicesRepo;
-        this.servicesFeedBackRepo = servicesFeedbackRepo;
+        this.reviewsRepo = servicesFeedbackRepo;
+    }
+
+    @Override
+    public List<ReviewsModel> giveReview(ReviewsModel reviewsModel, Long serviceId, String pid) {
+        User user = userRegistrationService.getUser(pid);
+        Services services = servicesRepo.getServiceById(serviceId);
+        if (user != null) {
+            if(services !=null){
+
+                ////////////////rating
+//                DecimalFormat df = new DecimalFormat("#.#");
+//                Reviews serviceRating = reviewsRepo.findProductRatingByProductAndUser(serviceId, user);
+
+
+                reviewsModel.setUser(user);
+                reviewsModel.setRating(reviewsModel.getRating());
+                reviewsModel.setCurrentTime(LocalDateTime.now());
+                List<ReviewsModel> reviews = (Arrays.asList(reviewsModel)) ;
+                services.setReviews(reviews.stream().map(Mapper::toReviewEntity).collect(Collectors.toList()));
+
+                servicesRepo.save(services);
+            }
+        }
+        return null;
     }
 //@Transactional
 //    @Override

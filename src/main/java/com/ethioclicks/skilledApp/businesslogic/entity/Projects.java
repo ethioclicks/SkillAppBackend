@@ -20,7 +20,7 @@ public class Projects {
     private Long id;
     @Column(name = "TITLE")
     private String title;
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL )
     @JoinColumn(name = "PROJECT_ID")
     private List<ProjectImages> projectImages;
     @Column(name = "DESCRIPTION")
@@ -31,5 +31,4 @@ public class Projects {
     private String projectsGivenTo;
     @Column(name = "TIME_TAKEN")
     private Integer timeTaken;
-
 }
