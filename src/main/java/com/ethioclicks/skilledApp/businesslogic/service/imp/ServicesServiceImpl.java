@@ -34,8 +34,9 @@ public class ServicesServiceImpl implements ServicesService {
   private final ProjectsRepo projectsRepo;
   private final  ProjectImageRepo projectImageRepo;
   private final  ReviewsRepo reviewsRepo;
+  private final ServiceImageRepo serviceImageRepo;
 
-    public ServicesServiceImpl(ServicesRepo servicesRepo, UserRegistrationService userRegistrationService, UserRepo userRepo, PaymentTypeRepo paymentTypeRepo, SkillCategoryRepo skillCategoryRepo, AvailabilityHourRepo availabilityHourRepo, ProjectsRepo projectsRepo, ProjectImageRepo projectImageRepo, ReviewsRepo reviewsRepo) {
+    public ServicesServiceImpl(ServicesRepo servicesRepo, UserRegistrationService userRegistrationService, UserRepo userRepo, PaymentTypeRepo paymentTypeRepo, SkillCategoryRepo skillCategoryRepo, AvailabilityHourRepo availabilityHourRepo, ProjectsRepo projectsRepo, ProjectImageRepo projectImageRepo, ReviewsRepo reviewsRepo, ServiceImageRepo serviceImageRepo) {
         this.servicesRepo = servicesRepo;
         this.userRegistrationService = userRegistrationService;
         this.userRepo = userRepo;
@@ -45,6 +46,7 @@ public class ServicesServiceImpl implements ServicesService {
         this.projectsRepo = projectsRepo;
         this.projectImageRepo = projectImageRepo;
         this.reviewsRepo = reviewsRepo;
+        this.serviceImageRepo = serviceImageRepo;
     }
     @Transactional
     @Override
@@ -103,30 +105,27 @@ public class ServicesServiceImpl implements ServicesService {
     public void deleteService(Long serviceId,String pid) {
 //        User user = userRepo.findByUserPublicId(pid).orElseThrow(()-> new BadRequestException("User not found"));
 
-        Optional<Services> services = servicesRepo.findById(serviceId);
-        if(services.isPresent()){
-
-
-            if(isServiceOwner(services.get().getServicePublicId(),pid)){
-                for(AvailabilityHour availabilityHour: services.get().getAvailabilityHours()){
-                    availabilityHourRepo.deleteByIdManual(availabilityHour.getId());
-                }
-                for(Projects projects : services.get().getProjects()){
-                    for(ProjectImages projectImages: projects.getProjectImages() ){
-                        projectImageRepo.deleteByIdManual(projectImages.getId());
-                    }
-                    projectsRepo.deleteByIdManual(projects.getId());
-                }
-                for(Projects projects : services.get().getProjects()){
-                    projectsRepo.deleteByIdManual(projects.getId());
-                }
-                for(Reviews reviews : services.get().getReviews()){
-                    reviewsRepo.deleteByIdManual(reviews.getId());
-                }
-                servicesRepo.deleteServicesByServicePublicId(serviceId);
-            }else{
-                throw new BadRequestException("You don't have permission to delete");
+        Services services = servicesRepo.findById(serviceId).orElseThrow(()-> new BadRequestException("service not found"));
+        if(isServiceOwner(services.getServicePublicId(),pid)){
+            for(AvailabilityHour availabilityHour: services.getAvailabilityHours()){
+                availabilityHourRepo.deleteByIdManual(availabilityHour.getId());
             }
+            for(Projects projects : services.getProjects()){
+                for(ProjectImages projectImages: projects.getProjectImages() ){
+                    projectImageRepo.deleteByIdManual(projectImages.getId());
+                }
+                projectsRepo.deleteByIdManual(projects.getId());
+            }
+            for(Projects projects : services.getProjects()){
+                projectsRepo.deleteByIdManual(projects.getId());
+            }
+            for(ServiceImage serviceImage : services.getServiceImages()){
+                serviceImageRepo.deleteByIdManual(serviceImage.getId());
+            }
+            for(Reviews reviews : services.getReviews()){
+                reviewsRepo.deleteByIdManual(reviews.getId());
+            }
+            servicesRepo.deleteServicesByServicePublicId(serviceId);
         }
     }
     @Override

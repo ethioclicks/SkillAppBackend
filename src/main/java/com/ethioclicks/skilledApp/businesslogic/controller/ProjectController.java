@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 public class ProjectController {
-
     private final ProjectsService projectsService;
 
     public ProjectController(ProjectsService projectsService) {

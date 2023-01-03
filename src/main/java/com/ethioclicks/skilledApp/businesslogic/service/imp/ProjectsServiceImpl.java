@@ -44,15 +44,12 @@ public class ProjectsServiceImpl implements ProjectsService {
                 existingProject.setTitle(projects.getTitle());
                 existingProject.setTotalCost(projects.getTotalCost());
                 existingProject.setTimeTaken(projects.getTimeTaken());
-               existingService.getProjects().add(existingProject);
+                existingService.getProjects().add(existingProject);
             }else{
-
                 existingService.getProjects().add(projects);
             }
             servicesRepo.save(existingService);
             return existingService.getProjects();
-
-
         }
         else throw new BadRequestException("Project Model is required");
     }
