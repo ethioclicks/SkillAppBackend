@@ -21,10 +21,10 @@ public class ProjectController {
         this.projectsService = projectsService;
     }
 
-    @PostMapping("/projects/saveProjects/{serviceId}")
+    @PostMapping("/projects/saveProjects/")
     @Operation(description = "This API receive Project service Information and Create Project detail ")
-    public ResponseEntity saveProjects  (@Parameter(description = "Project's Information" )@RequestBody Projects projectsModel,
-                                        @PathVariable(name = "serviceId") Long serviceId,
+    public ResponseEntity saveProjects (@Parameter(description = "Project's Information" )@RequestBody Projects projectsModel,
+                                         @Parameter(name = "serviceId") Long serviceId,
                                          @RequestHeader(name = "pid")String pid){
 
         if(projectsService.isServiceOwner(serviceId,pid)){
@@ -38,11 +38,9 @@ public class ProjectController {
     @DeleteMapping( "projects/{projectId}" )
     @SecurityRequirement( name = "bearerAuth" )
     @Operation( description = "This API accept service Id and delete the service" )
-    public ResponseEntity deleteProjects(@Parameter( description = "project Id" ) @PathVariable( "projectId" ) Long projectId,
-                                         @Parameter(name = "serviceId") Long serviceId,
-                                         @RequestHeader("pid") String pid) {
+    public ResponseEntity deleteProjects(@Parameter( description = "project Id") @PathVariable( "projectId" ) Long projectId) {
 
-        projectsService.deleteProject(projectId, pid);
+        projectsService.deleteProject(projectId);
         return new ResponseEntity("Successfully Deleted", HttpStatus.OK);
     }
 }

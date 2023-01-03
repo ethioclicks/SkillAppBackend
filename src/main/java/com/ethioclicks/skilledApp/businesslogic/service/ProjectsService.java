@@ -9,7 +9,6 @@ import java.util.List;
 public interface ProjectsService  {
    List<Projects> saveProjects(Projects projectsModel, Long serviceId);
     boolean isServiceOwner(Long serviceId, String pid);
-
-    void deleteProject( Long projectId, String pid);
+    void deleteProject( Long projectId);
 
 }

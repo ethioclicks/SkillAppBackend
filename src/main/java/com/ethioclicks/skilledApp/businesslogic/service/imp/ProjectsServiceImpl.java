@@ -33,31 +33,24 @@ public class ProjectsServiceImpl implements ProjectsService {
     @Transactional
     @Override
     public List<Projects> saveProjects(Projects projects, Long serviceId) {
-        Optional<Services> services = servicesRepo.findById(serviceId);
-
-        if (projects != null)
-
+        Services existingService = servicesRepo.findById(serviceId).orElseThrow(()->new BadRequestException("Service Id not found"));
+        if ( projects != null)
         {
             if(projects.getId()!=null){
-                Optional<Projects> existingProject = projectsRepo.findById(projects.getId());
-                existingProject.get().setProjectImages(projects.getProjectImages());
-                existingProject.get().setProjectsGivenTo(projects.getProjectsGivenTo());
-                existingProject.get().setDescription(projects.getDescription());
-                existingProject.get().setTitle(projects.getTitle());
-                existingProject.get().setTotalCost(projects.getTotalCost());
-                existingProject.get().setTimeTaken(projects.getTimeTaken());
-                List<Projects> projectsToUpdate = (Arrays.asList(existingProject.get())) ;
-                List<Projects>projectsForService = new ArrayList<>(projectsToUpdate);
-                services.get().setProjects(projectsForService);
+                Projects existingProject = projectsRepo.findById(projects.getId()).orElseThrow(()-> new BadRequestException("Project Id not found"));
+                existingProject.setProjectImages(projects.getProjectImages());
+                existingProject.setProjectsGivenTo(projects.getProjectsGivenTo());
+                existingProject.setDescription(projects.getDescription());
+                existingProject.setTitle(projects.getTitle());
+                existingProject.setTotalCost(projects.getTotalCost());
+                existingProject.setTimeTaken(projects.getTimeTaken());
+               existingService.getProjects().add(existingProject);
             }else{
 
-                List<Projects> newProjects = (Arrays.asList(projects)) ;
-                List<Projects>projectsForService = new ArrayList<>(newProjects);
-                services.get().setProjects(projectsForService);
-
+                existingService.getProjects().add(projects);
             }
-            servicesRepo.save(services.get());
-            return services.get().getProjects();
+            servicesRepo.save(existingService);
+            return existingService.getProjects();
 
 
         }
@@ -74,7 +67,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
     @Transactional
     @Override
-    public void deleteProject(Long projectId, String pid) {
+    public void deleteProject(Long projectId) {
 
         Projects projects = projectsRepo.findById(projectId).orElseThrow(() -> new BadRequestException("Project with id not found"));
         if (projects != null && projects.getProjectImages() != null && !projects.getProjectImages().isEmpty()){

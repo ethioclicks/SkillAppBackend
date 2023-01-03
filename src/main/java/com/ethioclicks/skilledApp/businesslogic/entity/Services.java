@@ -55,9 +55,11 @@ public class Services {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "AVAILABILITY_HOUR_ID")
     private List<AvailabilityHour> availabilityHours;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "SERVICES_ID" )
     private List<Projects> projects;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "SERVICES_ID")
     private List<ServiceImage>serviceImages;
