@@ -15,21 +15,24 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 
-
 @Service
 public class PasswordResetServiceImpl implements PasswordResetService {
-    @Autowired
-    PasswordTokenRepo passwordTokenRepo;
-    @Autowired
-    EmailService emailService;
+
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    PasswordTokenRepo passwordTokenRepo;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     PasswordResetService passwordResetService;
 
+
     @Value( "${expiration_time}" )
     private int expiration_time;
+
     @Value( "${subject_password_reset}" )
     private String subject_password_reset;
     @Value( "${message_password_reset}" )
@@ -39,9 +42,58 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Value( "${subject_email_verification}" )
     private String subject_email_verification;
 
+    @Override
+    public String sendPasswordResetToken(String email) throws Exception {
+        User user = userRepo.findByUserName(email);
+        String token = null;
 
+        if (user != null) {
+            EmailSendToken emailSendToken = passwordTokenRepo.findByEmail(email);
+
+            if (emailSendToken == null) {
+                emailSendToken = new EmailSendToken();
+            }
+            token = UUID.randomUUID().toString().substring(0, 6);
+            emailSendToken.setToken(token);
+            emailSendToken.setEmail(email);
+            emailSendToken.setCreatedDate(LocalDateTime.now());
+            passwordTokenRepo.save(emailSendToken);
+            emailService.sendGenericEmail(token, email, subject_password_reset, message_password_reset);
+
+        } else {
+            return "not found";
+        }
+        return token;
+    }
+    @Override
+    public EmailSendToken getTokenByEmail(String token, String email) {
+
+        return passwordTokenRepo.findByTokenAndEmail(token, email);
+    }
+    @Override
+    public void resetPassword(User user, String newPassword) {
+        user.setPassWord(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+        User user1 = userRepo.findByUserName(user.getUserName());
+        EmailSendToken emailSendToken = passwordTokenRepo.findByEmail(user1.getUserName());
+        if (emailSendToken != null) {
+            passwordTokenRepo.delete(emailSendToken);
+            userRepo.save(user);
+        }
+    }
+    @Override
+    public boolean isTokenExpired(LocalDateTime tokenCreationDate) {
+        LocalDateTime now = LocalDateTime.now();
+        return tokenCreationDate.plusMinutes(expiration_time).isBefore(now);
+
+    }
+    @Override
+    public boolean isValidToken(String token , String email) {
+        EmailSendToken userToken = passwordResetService.getTokenByEmail(token, email);
+        return userToken != null;
+    }
     @Override
     public String sendFirstRegistrationToken(String email) throws Exception {
+
         String tokenString = null;
 
         EmailSendToken token = passwordTokenRepo.findByEmail(email);
@@ -57,45 +109,5 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         emailService.sendGenericEmail(tokenString, email, subject_email_verification, message_email_verification);
 
         return tokenString;
-    }
-
-    @Override
-    public void resetUserName(User userChange, String newEmail) {
-        User user = userRepo.findByUserName(userChange.getUserName());
-        EmailSendToken emailSendToken = passwordTokenRepo.findByEmail(user.getUserName());
-        if (emailSendToken != null) {
-            user.setUserName(newEmail);
-            passwordTokenRepo.delete(emailSendToken);
-            userRepo.save(user);
-        }
-    }
-
-    @Override
-    public EmailSendToken getTokenByEmail(String token, String email) {
-        return passwordTokenRepo.findByTokenAndEmail(token, email);
-    }
-
-    @Override
-    public void resetPassword(User user, String newPassword) {
-        user.setPassWord(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
-        User user1 = userRepo.findByUserName(user.getUserName());
-        EmailSendToken emailSendToken = passwordTokenRepo.findByEmail(user1.getUserName());
-        if (emailSendToken != null) {
-            passwordTokenRepo.delete(emailSendToken);
-            userRepo.save(user);
-        }
-    }
-
-    @Override
-    public boolean isTokenExpired(LocalDateTime tokenCreationDate) {
-        LocalDateTime now = LocalDateTime.now();
-        return tokenCreationDate.plusMinutes(expiration_time).isBefore(now);
-
-    }
-
-    @Override
-    public boolean isValidToken(String token, String email) {
-        EmailSendToken userToken = passwordResetService.getTokenByEmail(token, email);
-        return userToken != null;
     }
 }

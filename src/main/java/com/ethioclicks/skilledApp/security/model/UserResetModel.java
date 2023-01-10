@@ -16,5 +16,4 @@ public class UserResetModel {
     private String userPassword;
     private String phoneNumber;
     private int attempt;
-
 }
