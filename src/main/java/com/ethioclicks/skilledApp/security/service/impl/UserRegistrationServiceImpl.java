@@ -1,13 +1,14 @@
 package com.ethioclicks.skilledApp.security.service.impl;
 
+import com.ethioclicks.skilledApp.security.entity.ConfirmationToken;
+import com.ethioclicks.skilledApp.security.entity.Role;
 import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.model.NewUserDetail;
+import com.ethioclicks.skilledApp.security.repo.ConfirmationTokenRepository;
 import com.ethioclicks.skilledApp.security.repo.RoleRepo;
 import com.ethioclicks.skilledApp.security.repo.UserRepo;
-import com.ethioclicks.skilledApp.security.entity.Role;
-
+import com.ethioclicks.skilledApp.security.service.EmailService;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
-import com.ethioclicks.skilledApp.security.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,14 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     @Autowired
     RoleRepo roleRepo;
 
+    @Autowired
+    ConfirmationTokenRepository confirmationTokenRepository;
+
+    @Autowired
+    EmailService emailService;
+
     @Override
-    public NewUserDetail saveUser(NewUserDetail newUserDetail) {
+    public NewUserDetail saveUser(NewUserDetail newUserDetail) throws Exception {
         User user = new User();
         user.setUserName(newUserDetail.getEmail());
         user.setPassWord(newUserDetail.getUserPassword());
@@ -44,14 +51,19 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setSubCity(newUserDetail.getSubCity());
         user.setProfileImageUrl(newUserDetail.getProfileImageUrl());
         User savedUser = userRepo.save(user);
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(savedUser);
+
+        confirmationTokenRepository.save(confirmationToken);
+
+        savedUser.setActivationUrl("http://localhost:8080/public/confirmAccount?token=" + confirmationToken.getConfirmationToken());
+
+        emailService.sendEmail(savedUser);
         if (savedUser == null) {
             return null;
         }
         return savedUser.getUserDetailModel(savedUser);
-
-
     }
-
     @Override
     public User saveUser(User user) {
         user.setPassWord(BCrypt.hashpw(user.getPassWord(), BCrypt.gensalt()));
@@ -149,6 +161,11 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         }
 
         return errors;
+    }
+
+    @Override
+    public User updateStatus(User user) {
+        return userRepo.save(user);
     }
 
 

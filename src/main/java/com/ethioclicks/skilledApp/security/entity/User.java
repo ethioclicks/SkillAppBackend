@@ -73,6 +73,8 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="AGENCY_ID")
     private Agency agency;
+    @Transient
+    private String activationUrl;
 
     public void addServices(Services services){
         this.services.add(services);

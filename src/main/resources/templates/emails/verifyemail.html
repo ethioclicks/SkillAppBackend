@@ -36,13 +36,13 @@
 <!--/*@thymesVar id="recipe" type="com.ethioclicks.skilledApp.security.entity.User"*/-->
 <div>
 
-    <h1>Zegulit Ecommerce</h1>
+    <h1>Ethio Clicks Skill App</h1>
     <hr>
     <div class="container" th:each="user : ${verifyemail}">
-        <h2 th:text="@{|Hi ${user.firstName} ${user.lastName} |}" > Hi new User</h2><br/>
+<!--        <h2 th:text="@{|Hi ${user.firstName} ${user.lastName} |}" > Hi new User</h2><br/>-->
         <p>Thanks for joining our app. To finish sign up, you just need to confirm that we got your email right.</p>
         <div class="card">
-            <a th:href="@{|http://localhost:8080/verify_email?pid=${user.userPublicId}|}" target="blank">
+<!--            <a th:href="@{|http://localhost:8080/verify_email?pid=${user.userPublicId}|}" target="blank">-->
                 <button>Verify Now</button> <br/>
             </a>
             <hr>

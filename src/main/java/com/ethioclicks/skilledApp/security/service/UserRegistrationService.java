@@ -1,14 +1,14 @@
 package com.ethioclicks.skilledApp.security.service;
 
+import com.ethioclicks.skilledApp.security.entity.Role;
 import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.model.NewUserDetail;
-import com.ethioclicks.skilledApp.security.entity.Role;
 
 import java.util.Map;
 import java.util.Set;
 
 public interface UserRegistrationService {
-    NewUserDetail saveUser(NewUserDetail user);
+    NewUserDetail saveUser(NewUserDetail user) throws Exception;
     NewUserDetail saveUser(NewUserDetail user, Set<Role> roles);
 
     User saveUser(User user);
@@ -20,4 +20,5 @@ public interface UserRegistrationService {
     User updateUser(User user);
     Map<String, String> checkUserData(NewUserDetail userDetail);
 
+    User updateStatus(User user);
 }

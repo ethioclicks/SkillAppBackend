@@ -1,6 +1,7 @@
 package com.ethioclicks.skilledApp.businesslogic.model;
 
-import com.ethioclicks.skilledApp.businesslogic.entity.ServicesFeedback;
+
+import com.ethioclicks.skilledApp.businesslogic.entity.Reviews;
 import com.ethioclicks.skilledApp.businesslogic.enums.FEEDBACK_TYPE;
 import com.ethioclicks.skilledApp.security.entity.User;
 import lombok.Data;
@@ -8,13 +9,15 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ServicesFeedbackModel {
+public class ReviewsModel {
 
     Long id;
     String feedback;
-    User user;
+
+    private Integer rating;
     LocalDateTime currentTime;
     FEEDBACK_TYPE type;
-    ServicesFeedback reply;
+    User user;
+    Reviews replay;
     Boolean isReply = false;
 }

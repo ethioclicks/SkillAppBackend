@@ -2,18 +2,26 @@ package com.ethioclicks.skilledApp.businesslogic.util;
 
 
 import com.ethioclicks.skilledApp.businesslogic.entity.Agency;
+import com.ethioclicks.skilledApp.businesslogic.entity.Projects;
+import com.ethioclicks.skilledApp.businesslogic.entity.Reviews;
 import com.ethioclicks.skilledApp.businesslogic.entity.Services;
-import com.ethioclicks.skilledApp.businesslogic.entity.ServicesFeedback;
+//import com.ethioclicks.skilledApp.businesslogic.entity.ServicesFeedback;
 import com.ethioclicks.skilledApp.businesslogic.enums.FEEDBACK_TYPE;
 import com.ethioclicks.skilledApp.businesslogic.model.AgencyModel;
-import com.ethioclicks.skilledApp.businesslogic.model.ServicesFeedbackModel;
+//import com.ethioclicks.skilledApp.businesslogic.model.ServicesFeedbackModel;
+import com.ethioclicks.skilledApp.businesslogic.model.ProjectsModel;
+import com.ethioclicks.skilledApp.businesslogic.model.ReviewsModel;
 import com.ethioclicks.skilledApp.businesslogic.model.ServicesModel;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 public class Mapper {
     public static ServicesModel toServiceModel(Services services) {
         if(services!=null){
             ServicesModel servicesModel = new ServicesModel();
             servicesModel.setId(services.getId());
+            servicesModel.setTag(services.getTag());
             servicesModel.setServicePublicId(services.getServicePublicId());
 //            servicesModel.setSkillCategory(services.getSkillCategory().getId());
             servicesModel.setDescription(services.getDescription());
@@ -25,7 +33,10 @@ public class Mapper {
             servicesModel.setAvailabilityTypeId(services.getAvailabilityTypeId());
             servicesModel.setNumberOfServicesCompleted(services.getNumberOfServicesCompleted());
             servicesModel.setAvailabilityHours(services.getAvailabilityHours());
-            servicesModel.setRate(services.getRate());
+            //servicesModel.setRate(services.getRate());
+            servicesModel.setReviews(services.getReviews());
+            servicesModel.setProjects(services.getProjects());
+            servicesModel.setServiceImages(services.getServiceImages());
             servicesModel.setPaymentPrice(services.getPaymentPrice());
             servicesModel.setPaymentRemark(services.getPaymentRemark());
             servicesModel.setPostDate(services.getPostDate());
@@ -39,6 +50,7 @@ public class Mapper {
         if(servicesModel!=null){
             Services services = new Services();
             services.setId(servicesModel.getId());
+            services.setTag(servicesModel.getTag());
             services.setServicePublicId(servicesModel.getServicePublicId());
 //            services.setSkillCategory(servicesModel.getSkillCategory());
             services.setDescription(servicesModel.getDescription());
@@ -50,14 +62,16 @@ public class Mapper {
             services.setAvailabilityTypeId(servicesModel.getAvailabilityTypeId());
             services.setNumberOfServicesCompleted(servicesModel.getNumberOfServicesCompleted());
             services.setAvailabilityHours(servicesModel.getAvailabilityHours());
-            services.setRate(servicesModel.getRate());
+            //services.setRate(servicesModel.getRate());
+            services.setProjects(servicesModel.getProjects());
+            services.setReviews(servicesModel.getReviews());
+            services.setServiceImages(servicesModel.getServiceImages());
             services.setPaymentPrice(servicesModel.getPaymentPrice());
             services.setPaymentRemark(servicesModel.getPaymentRemark());
             services.setPostDate(servicesModel.getPostDate());
 
             return services;
         }
-
         return null;
     }
     public static AgencyModel toAgencyModel(Agency agency) {
@@ -95,34 +109,90 @@ public class Mapper {
 
         return null;
     }
-    public static ServicesFeedback toServiceFeedback(ServicesFeedbackModel servicesFeedbackModel) {
-        if(servicesFeedbackModel!=null){
-            ServicesFeedback servicesFeedback = new ServicesFeedback();
-            servicesFeedback.setId(servicesFeedbackModel.getId());
-            servicesFeedback.setFeedback(servicesFeedbackModel.getFeedback());
-            servicesFeedback.setUser(servicesFeedbackModel.getUser());
-            servicesFeedback.setCurrentTime(servicesFeedbackModel.getCurrentTime());
-            servicesFeedback.setType(servicesFeedbackModel.getType().toString());
-            servicesFeedback.setReply(servicesFeedbackModel.getReply());
-            servicesFeedback.setIsReply(servicesFeedbackModel.getIsReply());
+    public static Projects toProjectEntity(ProjectsModel projectsModel){
+        if (projectsModel!=null){
+            Projects projects = new Projects();
+            projects.setId(projectsModel.getId());
+            projects.setProjectsGivenTo(projectsModel.getProjectsGivenTo());
+            projects.setTotalCost(projectsModel.getTotalCost());
+            projects.setTitle(projectsModel.getTitle());
+            projects.setProjectImages(projectsModel.getProjectImages());
+            projects.setDescription(projectsModel.getDescription());
+            projects.setTotalCost(projectsModel.getTotalCost());
 
-            return servicesFeedback;
+
+
         }
         return null;
     }
-    public static ServicesFeedbackModel toServiceFeedbackModel(ServicesFeedback servicesFeedback) {
-        if(servicesFeedback !=null){
-            ServicesFeedbackModel servicesFeedbackModel = new ServicesFeedbackModel();
-            servicesFeedbackModel.setId(servicesFeedback.getId());
-            servicesFeedbackModel.setFeedback(servicesFeedback.getFeedback());
-            servicesFeedbackModel.setUser(servicesFeedback.getUser());
-            servicesFeedbackModel.setCurrentTime(servicesFeedback.getCurrentTime());
-            servicesFeedbackModel.setType(FEEDBACK_TYPE.valueOf(servicesFeedback.getType()));
-            servicesFeedbackModel.setReply(servicesFeedback.getReply());
-            servicesFeedbackModel.setIsReply(servicesFeedback.getIsReply());
+    public static ProjectsModel toProjectModel(Projects projects){
 
-            return servicesFeedbackModel;
+        if (projects!=null){
+            ProjectsModel projectsModel = new ProjectsModel();
+            projectsModel.setId(projects.getId());
+            projectsModel.setProjectsGivenTo(projects.getProjectsGivenTo());
+            projectsModel.setTotalCost(projects.getTotalCost());
+            projectsModel.setTitle(projects.getTitle());
+            projectsModel.setDescription(projects.getDescription());
+            projectsModel.setTotalCost(projects.getTotalCost());
+            projectsModel.setProjectImages(projects.getProjectImages());
         }
         return null;
     }
+
+    public static ReviewsModel toReviewModel(Reviews reviews){
+        if(reviews!=null){
+            ReviewsModel reviewsModel = new ReviewsModel();
+            reviewsModel.setId(reviews.getId());
+            reviewsModel.setCurrentTime(reviews.getCurrentTime());
+            reviewsModel.setUser(reviews.getUser());
+            reviewsModel.setFeedback(reviews.getFeedback());
+            reviewsModel.setRating(reviews.getRating());
+            reviewsModel.setReplay(reviewsModel.getReplay());
+            reviewsModel.setIsReply(reviews.getIsReply());
+        }
+        return  null;
+    }
+    public static Reviews toReviewEntity(ReviewsModel reviewsModel){
+        if(reviewsModel!=null){
+            Reviews reviews = new Reviews();
+            reviews.setId(reviewsModel.getId());
+            reviews.setCurrentTime(reviewsModel.getCurrentTime());
+            reviews.setUser(reviewsModel.getUser());
+            reviews.setFeedback(reviewsModel.getFeedback());
+            reviews.setRating(reviewsModel.getRating());
+            reviews.setReply(reviewsModel.getReplay());
+        }
+        return  null;
+    }
+//    public static ServicesFeedback toServiceFeedback(ServicesFeedbackModel servicesFeedbackModel) {
+//        if(servicesFeedbackModel!=null){
+//            ServicesFeedback servicesFeedback = new ServicesFeedback();
+//            servicesFeedback.setId(servicesFeedbackModel.getId());
+//            servicesFeedback.setFeedback(servicesFeedbackModel.getFeedback());
+//            servicesFeedback.setUser(servicesFeedbackModel.getUser());
+//            servicesFeedback.setCurrentTime(servicesFeedbackModel.getCurrentTime());
+//            servicesFeedback.setType(servicesFeedbackModel.getType().toString());
+//            servicesFeedback.setReply(servicesFeedbackModel.getReply());
+//            servicesFeedback.setIsReply(servicesFeedbackModel.getIsReply());
+//
+//            return servicesFeedback;
+//        }
+//        return null;
+//    }
+//    public static ServicesFeedbackModel toServiceFeedbackModel(ServicesFeedback servicesFeedback) {
+//        if(servicesFeedback !=null){
+//            ServicesFeedbackModel servicesFeedbackModel = new ServicesFeedbackModel();
+//            servicesFeedbackModel.setId(servicesFeedback.getId());
+//            servicesFeedbackModel.setFeedback(servicesFeedback.getFeedback());
+//            servicesFeedbackModel.setUser(servicesFeedback.getUser());
+//            servicesFeedbackModel.setCurrentTime(servicesFeedback.getCurrentTime());
+//            servicesFeedbackModel.setType(FEEDBACK_TYPE.valueOf(servicesFeedback.getType()));
+//            servicesFeedbackModel.setReply(servicesFeedback.getReply());
+//            servicesFeedbackModel.setIsReply(servicesFeedback.getIsReply());
+//
+//            return servicesFeedbackModel;
+//        }
+//        return null;
+//    }
 }

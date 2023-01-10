@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class Services {
     private Long id;
     @Column(name = "SERVICE_PUBLIC_ID")
     private String servicePublicId;
+    @Lob
+    @Column(name = "TAG", length = 1000 )
+    private String tag;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SKILL_CATEGORY_ID")
     private SkillCategory skillCategory;
@@ -38,30 +42,32 @@ public class Services {
     private String skills;
     @Column (name = "IMAGE_URL")
     private String imageUrl;
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("services")
     @JoinColumn(name = "USER_ID")
     private User user;
-
     @Column(name = "LOCATION_COVERAGE", length = 1000)
     private String locationCoverage;
-
     @Column(name = "AVAILABILITY_TYPE_ID")
     private String  availabilityTypeId;
-
     @Column(name = "NUMBER_OF_SERVICES_COMPLETED")
     private Integer numberOfServicesCompleted;
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "AVAILABILITY_HOUR_ID")
     private List<AvailabilityHour> availabilityHours;
-    @Column(name = "RATE")
-    private double rate;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVICES_ID" )
+    private List<Projects> projects;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVICES_ID")
+    private List<ServiceImage>serviceImages;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "SERVICES_ID")
+    private List<Reviews> reviews;
     @Transient
     private int usersRated;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PAYMENT_TYPE_ID")
     private PaymentType paymentType;
@@ -71,5 +77,4 @@ public class Services {
     private String paymentRemark;
     @Column(name = "POST_DATE")
     private LocalDateTime postDate;
-
 }

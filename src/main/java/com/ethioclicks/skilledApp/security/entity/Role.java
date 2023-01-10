@@ -1,7 +1,10 @@
 package com.ethioclicks.skilledApp.security.entity;
 
 import com.ethioclicks.skilledApp.security.enums.RoleEnum;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -13,7 +16,7 @@ import javax.persistence.*;
 @Table(name = "ROLE")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "ID")
     Integer id;
     @Column(name = "NAME")

@@ -1,8 +1,10 @@
 package com.ethioclicks.skilledApp.security.controller;
 
+
 import com.ethioclicks.skilledApp.security.entity.User;
 import com.ethioclicks.skilledApp.security.model.UserProfileModel;
 import com.ethioclicks.skilledApp.security.repo.UserRepo;
+import com.ethioclicks.skilledApp.security.service.AdminService;
 import com.ethioclicks.skilledApp.security.service.UserRegistrationService;
 import com.ethioclicks.skilledApp.security.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,11 +30,14 @@ public class AdminUserController {
     @Autowired
     UserRegistrationService userRegistrationService;
 
+    @Autowired
+    AdminService adminService;
+
 
     @GetMapping("/userList")
     @Operation(description = "This API is for getting List of Users")
     Page<User> getUsers(@RequestHeader(value = "pid", required = true) String pid, @PageableDefault() Pageable pageable) {
-        if(isAdmin(pid)){
+        if(adminService.isAdmin(pid)){
 
             return userService.getUserListPageable(pageable);
         }
@@ -42,7 +47,7 @@ public class AdminUserController {
     @PostMapping("/updateIsEnable")
     @Operation(description = "This API receive User's Public Id as Header Parameter and then update IsEnable value")
     ResponseEntity<String> updateIsEnabled(@Parameter(description = "User's Public Id") @RequestHeader(value = "pid", required = true) String pid, @RequestParam("upid") String upid) throws Exception {
-        if(isAdmin(pid)){
+        if(adminService.isAdmin(pid)){
             Optional<User> userByPublicId = userRepo.findByUserPublicId(upid);
 
             if (userByPublicId.isPresent()) {
@@ -66,7 +71,7 @@ public class AdminUserController {
     @PostMapping("/updateIsLocked")
     @Operation(description = "This API receive User's Public Id as Header Parameter and then update IsEnable value")
     ResponseEntity<String> updateLocked (@Parameter(description = "User's Public Id ") @RequestHeader(value = "pid", required = true) String pid, @RequestParam("upid") String upid) throws Exception {
-        if(isAdmin(pid)) {
+        if(adminService.isAdmin(pid)) {
             Optional<User> userByPublicId = userRepo.findByUserPublicId(upid);
 
             if (userByPublicId.isPresent()) {
@@ -89,8 +94,7 @@ public class AdminUserController {
     @GetMapping("/{phoneNo}")
     @Operation(description = "This API receive User's using user Phone Number, User's Information as Request Body then change/update User's Info and return the user's profile.")
     ResponseEntity<UserProfileModel> updateUserProfile(@Parameter(description = "User's PhoneNumber") @RequestHeader(value = "pid", required = true) String pid, @PathVariable("phoneNo") String phoneNo) {
-
-        if (isAdmin(pid)) {
+        if (adminService.isAdmin(pid)) {
 
             Optional<User> userByPhoneNo = userRepo.findUserByPhoneNumber(phoneNo);
 
@@ -100,16 +104,14 @@ public class AdminUserController {
             }else{
                 return null;
             }
-
         }
         return new ResponseEntity("Don't Have  Access", HttpStatus.UNAUTHORIZED);
     }
-
     @PostMapping("/{phoneNo}")
     @Operation(description = "This API receive User's using user Phone Number, User's Information as Request Body then change/update User's Info and return the user's profile.")
     ResponseEntity<UserProfileModel> updateUserProfile(@Parameter(description = "User's PhoneNumber") @RequestHeader(value = "pid", required = true) String pid,   @RequestBody UserProfileModel userProfileModel) {
 
-        if (isAdmin(pid)) {
+        if (adminService.isAdmin(pid)) {
 
             Optional<User> userByPublicId = userRepo.findByUserPublicId(userProfileModel.getUserPublicId());
 
@@ -124,27 +126,24 @@ public class AdminUserController {
                     }
                 }
                 return new ResponseEntity(userService.updateUserProfile( userProfileModel), null, HttpStatus.OK);
-
             }
             return new ResponseEntity("not found", HttpStatus.NOT_FOUND);
-
         }
         return new ResponseEntity("Don't Have  Access", HttpStatus.NOT_FOUND);
-
     }
-
-    public boolean isAdmin(String pid) {
-
-        Optional<User> userByPublicId = userRepo.findByUserPublicId(pid);
-        if (userByPublicId.isPresent()) {
-            String role = userByPublicId.get().getRoles().stream().findFirst().get().getName();
-
-            if (!role.equals("ADMIN")) {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
+//    @PostMapping("shop/shopVerification")
+//    @Operation(description = "This API receive User's Public Id as Header Parameter and then update IsEnable value")
+//    ResponseEntity<String> verifyShop (@Parameter(description = "User's Public Id ") @RequestHeader(value = "pid", required = true) String pid, @RequestParam("shopPublicId") String shopPublicId) throws Exception {
+//        if(adminService.isAdmin(pid)) {
+//            Optional<Shop> shopByPublicId = shopRepo.findByShopPublicId(shopPublicId);
+//
+//            if (shopByPublicId.isPresent()) {
+//               shopService.verifyShop(shopByPublicId.get(), shopPublicId);
+//                return new ResponseEntity("Verification Complete", HttpStatus.OK);
+//            }
+//            return new ResponseEntity("shop Not Found", HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity("Don't Have  Access", HttpStatus.NOT_FOUND);
+//    }
 }
 

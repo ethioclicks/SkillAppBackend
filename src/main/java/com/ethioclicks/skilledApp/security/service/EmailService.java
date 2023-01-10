@@ -1,7 +1,10 @@
 package com.ethioclicks.skilledApp.security.service;
 
-public interface EmailService {
-    boolean isEmailExists(String email);
-    String sendGenericEmail(String token, String email, String subject, String message) throws Exception;
+import com.ethioclicks.skilledApp.security.entity.User;
 
+public interface EmailService {
+
+    String sendEmail(User savedUser) throws Exception;
+    String sendGenericEmail(String token, String email, String subject, String message) throws Exception;
+    
 }

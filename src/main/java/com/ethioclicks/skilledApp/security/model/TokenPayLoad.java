@@ -16,13 +16,6 @@ public class TokenPayLoad {
     private String username;
     private String phone;
 
-    private String verifiedEmail;
-    private Boolean isEmailVerified;
-
-    private Boolean isApproved;
-
-    private Boolean isSuspended;
-
     public TokenPayLoad(String token, User user){
         this.token=token;
 
@@ -32,10 +25,6 @@ public class TokenPayLoad {
             this.lastName=user.getLastName();
             this.username=user.getUserName();
             this.phone = user.getPhoneNumber();
-            this.verifiedEmail = user.getVerifiedEmail();
-            this.isEmailVerified = user.getIsEmailVerified();
-            this.isApproved = user.getIsApproved();
-            this.isSuspended= user.getIsSuspended();
         }
 
 
